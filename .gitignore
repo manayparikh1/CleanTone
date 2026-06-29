@@ -1,15 +1,6 @@
 node_modules/
+package-lock.json
+.claude/
 npm-debug.log
 .DS_Store
-public/uploads/*
-!public/uploads/.gitkeep
 .env
-.env.local
-.env.*.local
-test-audio/
-*.wav
-*.mp3
-dist/
-build/
-.cache
-.claude/settings.local.json
