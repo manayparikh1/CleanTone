@@ -1350,8 +1350,8 @@
       const name = file.name.toLowerCase();
       const isMP3 = name.endsWith('.mp3');
       const isWAV = name.endsWith('.wav');
-      if (!(isMP3 || isWAV || file.type.startsWith('audio/'))) { showStatus('Please choose an MP3 or WAV file.', 'err'); return; }
-      if (file.size > 50 * 1024 * 1024) { showStatus('File is larger than 50 MB.', 'err'); return; }
+      if (!(isMP3 || isWAV || file.type.startsWith('audio/'))) { showStatus('File format not supported. Please use MP3 or WAV audio files.', 'err'); return; }
+      if (file.size > 50 * 1024 * 1024) { showStatus(`File is too large (${fmtBytes(file.size)}). Maximum is 50 MB. Try compressing or using a shorter portion.`, 'err'); return; }
 
       originalFile = file;
       els.fname.textContent = file.name;
@@ -1379,9 +1379,13 @@
         }
         document.getElementById('app').scrollIntoView({ behavior: 'smooth', block: 'start' });
       } catch (err) {
-        console.error(err);
+        console.error('Decode error:', err);
         els.filebar.classList.remove('processing');
-        showStatus('Could not decode this audio file. Try a different MP3 or WAV.', 'err');
+        let msg = 'Could not decode this audio file. ';
+        if (err.message?.includes('not supported')) msg += 'File format not supported. Try MP3 or WAV.';
+        else if (err.message?.includes('decrypt')) msg += 'File appears to be DRM-protected or corrupted.';
+        else msg += 'Try a different MP3 or WAV file, or check the file is not corrupted.';
+        showStatus(msg, 'err');
       }
     }
 
@@ -1566,9 +1570,10 @@
       } catch (err) {
         console.error('Enhance error:', err);
         let msg = 'Enhancement failed. ';
-        if (err.message?.includes('OfflineAudioContext')) msg += 'Browser audio API error.';
-        else if (err.message?.includes('memory')) msg += 'File too large for processing.';
-        else msg += 'Check browser console and try a smaller file.';
+        if (err.message?.includes('OfflineAudioContext')) msg += 'Browser audio API error. Try reloading the page.';
+        else if (err.message?.includes('memory')) msg += 'File too large (your browser ran out of memory). Try a shorter or lower-quality audio file.';
+        else if (err.message?.includes('OutOfMemory')) msg += 'Out of memory. Close other tabs and try again.';
+        else msg += 'Check browser console. Try with a different audio format or smaller file.';
         showStatus(msg, 'err');
       } finally {
         els.enhance.disabled = false;
