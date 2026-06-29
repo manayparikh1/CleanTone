@@ -1060,12 +1060,12 @@
         <div class="controls" id="controls">
           <div class="ctrl-head">
             <h3>Enhancement settings</h3>
-            <div class="preset-row" id="presets">
-              <button class="preset active" data-preset="balanced" title="General purpose: balanced noise reduction and clarity boost">Balanced</button>
-              <button class="preset" data-preset="voice" title="Optimized for vocals: higher clarity and less warmth">Voice</button>
-              <button class="preset" data-preset="strings" title="Strings & pads: more warmth and presence">Strings</button>
-              <button class="preset" data-preset="wind" title="Wind instruments: emphasis on presence and air">Wind</button>
-              <button class="preset" data-preset="max" title="Maximum clean: aggressive noise reduction">Max clean</button>
+            <div class="preset-row" id="presets" role="group" aria-label="Enhancement presets. Use arrow keys to navigate.">
+              <button class="preset active" data-preset="balanced" title="General purpose: balanced noise reduction and clarity boost" aria-current="true" tabindex="0">Balanced</button>
+              <button class="preset" data-preset="voice" title="Optimized for vocals: higher clarity and less warmth" tabindex="-1">Voice</button>
+              <button class="preset" data-preset="strings" title="Strings & pads: more warmth and presence" tabindex="-1">Strings</button>
+              <button class="preset" data-preset="wind" title="Wind instruments: emphasis on presence and air" tabindex="-1">Wind</button>
+              <button class="preset" data-preset="max" title="Maximum clean: aggressive noise reduction" tabindex="-1">Max clean</button>
             </div>
           </div>
           <div class="sliders">
@@ -1281,15 +1281,30 @@
     ['sNoise', 'sHP', 'sClarity', 'sWarmth'].forEach(id => els[id].addEventListener('input', syncLabels));
     syncLabels();
 
-    els.presets.addEventListener('click', (e) => {
-      const btn = e.target.closest('.preset'); if (!btn) return;
-      [...els.presets.children].forEach(b => b.classList.remove('active'));
+    const selectPreset = (btn) => {
+      const buttons = [...els.presets.children];
+      buttons.forEach(b => { b.classList.remove('active'); b.removeAttribute('aria-current'); b.tabIndex = -1; });
       btn.classList.add('active');
+      btn.setAttribute('aria-current', 'true');
+      btn.tabIndex = 0;
       const p = PRESETS[btn.dataset.preset];
       els.sNoise.value = p.noise; els.sHP.value = p.hp; els.sClarity.value = p.clarity; els.sWarmth.value = p.warmth;
       syncLabels();
       showStatus(`Loaded "${btn.textContent}" preset. Ready to enhance!`, 'ok');
       setTimeout(hideStatus, 3000);
+    };
+
+    els.presets.addEventListener('click', (e) => {
+      const btn = e.target.closest('.preset'); if (!btn) return;
+      selectPreset(btn);
+    });
+
+    els.presets.addEventListener('keydown', (e) => {
+      const buttons = [...els.presets.children];
+      const active = els.presets.querySelector('.active');
+      const idx = buttons.indexOf(active);
+      if (e.key === 'ArrowRight' && idx < buttons.length - 1) { selectPreset(buttons[idx + 1]); e.preventDefault(); }
+      if (e.key === 'ArrowLeft' && idx > 0) { selectPreset(buttons[idx - 1]); e.preventDefault(); }
     });
 
     ['dragover', 'dragenter'].forEach(ev => els.drop.addEventListener(ev, (e) => { e.preventDefault(); els.drop.classList.add('over'); }));
