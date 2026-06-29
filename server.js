@@ -17,6 +17,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', uptime: process.uptime() });
+});
+
 app.listen(port, () => {
-  console.log(`🎵 CleanTone running at http://localhost:${port}`);
+  console.log(`CleanTone running at http://localhost:${port}`);
 });
