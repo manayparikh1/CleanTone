@@ -614,6 +614,32 @@
       border: 1px solid rgba(248, 113, 113, 0.4);
     }
 
+    .progress-bar {
+      display: none;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 2px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .progress-bar.show {
+      display: block;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      animation: progress 2s ease-in-out infinite;
+    }
+
+    @keyframes progress {
+      0% { width: 0%; }
+      50% { width: 85%; }
+      100% { width: 95%; }
+    }
+
     /* Results */
     .results {
       display: none;
@@ -1103,6 +1129,9 @@
           </div>
 
           <div class="status" id="status"></div>
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill"></div>
+          </div>
         </div>
 
         <div class="results" id="results">
@@ -1278,7 +1307,7 @@
       controls: $('controls'), presets: $('presets'),
       sNoise: $('sNoise'), vNoise: $('vNoise'), sHP: $('sHP'), vHP: $('vHP'),
       sClarity: $('sClarity'), vClarity: $('vClarity'), sWarmth: $('sWarmth'), vWarmth: $('vWarmth'),
-      enhance: $('enhance'), download: $('download'), reset: $('reset'), status: $('status'),
+      enhance: $('enhance'), download: $('download'), reset: $('reset'), status: $('status'), progressBar: $('progressBar'),
       results: $('results'), canvasOrig: $('canvasOrig'), canvasEnh: $('canvasEnh'),
       audioOrig: $('audioOrig'), audioEnh: $('audioEnh'),
       stats: $('stats'), statGain: $('statGain'), statNoise: $('statNoise'), statDur: $('statDur'), statSR: $('statSR'),
@@ -1469,6 +1498,7 @@
       els.enhance.disabled = true;
       els.enhance.innerHTML = '<span class="spinner"></span> Enhancing…';
       els.filebar.classList.add('processing');
+      els.progressBar.classList.add('show');
       const estTime = Math.ceil(decodedBuffer.duration * 0.15);
       showStatus(`Processing ${fmtDuration(decodedBuffer.duration)} of audio (~${estTime}s)…`, 'ok');
       const startTime = performance.now();
@@ -1579,6 +1609,7 @@
         els.enhance.disabled = false;
         els.enhance.innerHTML = '✨ Enhance audio';
         els.filebar.classList.remove('processing');
+        els.progressBar.classList.remove('show');
       }
     }
     function rmsOf(buffer) { const d = buffer.getChannelData(0); let sum = 0; for (let i = 0; i < d.length; i++)sum += d[i] * d[i]; return Math.sqrt(sum / d.length); }
