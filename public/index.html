@@ -1204,9 +1204,9 @@
           </div>
 
           <div class="actions">
-            <button class="btn btn-primary" id="enhance">✨ Enhance audio</button>
-            <button class="btn btn-ghost" id="download" disabled>⬇️ Download WAV</button>
-            <button class="btn btn-ghost" id="reset">Clear</button>
+            <button class="btn btn-primary" id="enhance" aria-label="Apply audio enhancement with current settings (Ctrl+E)">✨ Enhance audio</button>
+            <button class="btn btn-ghost" id="download" disabled aria-label="Download the enhanced audio as a WAV file (Ctrl+S). Disabled until audio is enhanced.">⬇️ Download WAV</button>
+            <button class="btn btn-ghost" id="reset" aria-label="Clear the current file and reset all settings (Ctrl+R)">Clear</button>
           </div>
 
           <div class="status" id="status"></div>
@@ -1411,7 +1411,21 @@
       const w = parseInt(els.sWarmth.value, 10);
       els.vWarmth.textContent = (w >= 0 ? '+' : '') + w + ' dB';
     }
-    ['sNoise', 'sHP', 'sClarity', 'sWarmth'].forEach(id => els[id].addEventListener('input', syncLabels));
+    const checkPresetMatch = () => {
+      const active = document.querySelector('.preset.active');
+      if (!active) return;
+      const p = PRESETS[active.dataset.preset];
+      const matches = parseInt(els.sNoise.value) === p.noise &&
+                     parseInt(els.sHP.value) === p.hp &&
+                     parseInt(els.sClarity.value) === p.clarity &&
+                     parseInt(els.sWarmth.value) === p.warmth;
+      active.style.opacity = matches ? '1' : '0.7';
+      active.title = matches ? active.title : active.title + ' (modified)';
+    };
+
+    ['sNoise', 'sHP', 'sClarity', 'sWarmth'].forEach(id => {
+      els[id].addEventListener('input', () => { syncLabels(); checkPresetMatch(); });
+    });
     syncLabels();
 
     const selectPreset = (btn) => {
