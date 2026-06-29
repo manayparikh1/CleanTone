@@ -4,7 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Clean up and enhance instrument recordings right in your browser. Removes background noise, boosts clarity, and balances volume — no uploads, no accounts." />
   <title>CleanTone — Studio-Grade Audio Cleanup, In Your Browser</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>" />
   <style>
     :root {
       --bg: #070a12;
@@ -127,7 +131,6 @@
       font-size: 19px;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       box-shadow: 0 8px 22px var(--accent-glow);
-      object-fit: cover;
     }
 
     .logo .name {
@@ -190,31 +193,37 @@
       .nav-links a:not(.nav-cta) {
         display: none;
       }
+
       .btn {
         padding: 14px 20px;
         font-size: 14px;
         min-height: 48px;
       }
+
       input[type=range] {
         height: 10px;
         -webkit-appearance: none;
         appearance: none;
       }
+
       input[type=range]::-webkit-slider-thumb {
         width: 24px;
         height: 24px;
         -webkit-appearance: none;
         appearance: none;
       }
+
       input[type=range]::-moz-range-thumb {
         width: 24px;
         height: 24px;
       }
+
       .preset {
         padding: 11px 16px;
         font-size: 13px;
         min-height: 44px;
       }
+
       .label {
         font-size: 14px;
       }
@@ -395,8 +404,13 @@
     }
 
     @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .filebar .fname {
@@ -431,6 +445,7 @@
         max-height: 0;
         transform: translateY(-16px);
       }
+
       to {
         opacity: 1;
         max-height: 2000px;
@@ -654,8 +669,15 @@
     }
 
     @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 12px 30px var(--accent-glow); }
-      50% { box-shadow: 0 12px 40px var(--accent-glow), 0 0 20px var(--accent-glow); }
+
+      0%,
+      100% {
+        box-shadow: 0 12px 30px var(--accent-glow);
+      }
+
+      50% {
+        box-shadow: 0 12px 40px var(--accent-glow), 0 0 20px var(--accent-glow);
+      }
     }
 
     .btn-primary:disabled {
@@ -708,9 +730,17 @@
     }
 
     @keyframes progress {
-      0% { width: 0%; }
-      50% { width: 85%; }
-      100% { width: 95%; }
+      0% {
+        width: 0%;
+      }
+
+      50% {
+        width: 85%;
+      }
+
+      100% {
+        width: 95%;
+      }
     }
 
     /* Results */
@@ -732,6 +762,7 @@
         opacity: 0;
         transform: translateY(8px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -1172,7 +1203,7 @@
   <!-- Nav -->
   <nav>
     <div class="container nav-inner">
-      <div class="logo"><img class="mark" src="logo.png" alt="CleanTone logo" /><span class="name">CleanTone</span></div>
+      <div class="logo"><span class="mark">🎵</span><span class="name">CleanTone</span></div>
       <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#how">How it works</a>
@@ -1214,25 +1245,35 @@
         <div class="controls" id="controls">
           <div class="ctrl-head">
             <h3>Enhancement settings</h3>
-            <div class="preset-row" id="presets" role="group" aria-label="Enhancement presets. Use arrow keys to navigate.">
-              <button class="preset active" data-preset="balanced" title="General purpose: balanced noise reduction and clarity boost" aria-current="true" tabindex="0">Balanced</button>
-              <button class="preset" data-preset="voice" title="Optimized for vocals: higher clarity and less warmth" tabindex="-1">Voice</button>
-              <button class="preset" data-preset="strings" title="Strings & pads: more warmth and presence" tabindex="-1">Strings</button>
-              <button class="preset" data-preset="wind" title="Wind instruments: emphasis on presence and air" tabindex="-1">Wind</button>
-              <button class="preset" data-preset="max" title="Maximum clean: aggressive noise reduction" tabindex="-1">Max clean</button>
+            <div class="preset-row" id="presets" role="group"
+              aria-label="Enhancement presets. Use arrow keys to navigate.">
+              <button class="preset active" data-preset="balanced"
+                title="General purpose: balanced noise reduction and clarity boost" aria-current="true"
+                tabindex="0">Balanced</button>
+              <button class="preset" data-preset="voice" title="Optimized for vocals: higher clarity and less warmth"
+                tabindex="-1">Voice</button>
+              <button class="preset" data-preset="strings" title="Strings & pads: more warmth and presence"
+                tabindex="-1">Strings</button>
+              <button class="preset" data-preset="wind" title="Wind instruments: emphasis on presence and air"
+                tabindex="-1">Wind</button>
+              <button class="preset" data-preset="max" title="Maximum clean: aggressive noise reduction"
+                tabindex="-1">Max clean</button>
             </div>
           </div>
           <div class="sliders">
             <div class="slider">
-              <label for="sNoise"><span class="lab">Noise reduction</span><span class="val" id="vNoise">75%</span></label>
+              <label for="sNoise"><span class="lab">Noise reduction</span><span class="val"
+                  id="vNoise">75%</span></label>
               <input type="range" id="sNoise" min="0" max="100" value="75" aria-label="Noise reduction amount" />
             </div>
             <div class="slider">
-              <label for="sHP"><span class="lab">Rumble cut (high-pass)</span><span class="val" id="vHP">100 Hz</span></label>
+              <label for="sHP"><span class="lab">Rumble cut (high-pass)</span><span class="val" id="vHP">100
+                  Hz</span></label>
               <input type="range" id="sHP" min="20" max="250" value="100" aria-label="High-pass filter frequency" />
             </div>
             <div class="slider">
-              <label for="sClarity"><span class="lab">Clarity boost</span><span class="val" id="vClarity">+8 dB</span></label>
+              <label for="sClarity"><span class="lab">Clarity boost</span><span class="val" id="vClarity">+8
+                  dB</span></label>
               <input type="range" id="sClarity" min="0" max="14" value="8" aria-label="Clarity boost amount" />
             </div>
             <div class="slider">
@@ -1242,9 +1283,13 @@
           </div>
 
           <div class="actions">
-            <button class="btn btn-primary" id="enhance" aria-label="Apply audio enhancement with current settings (Ctrl+E)">✨ Enhance audio</button>
-            <button class="btn btn-ghost" id="download" disabled aria-label="Download the enhanced audio as a WAV file (Ctrl+S). Disabled until audio is enhanced.">⬇️ Download WAV</button>
-            <button class="btn btn-ghost" id="reset" aria-label="Clear the current file and reset all settings (Ctrl+R)">Clear</button>
+            <button class="btn btn-primary" id="enhance"
+              aria-label="Apply audio enhancement with current settings (Ctrl+E)">✨ Enhance audio</button>
+            <button class="btn btn-ghost" id="download" disabled
+              aria-label="Download the enhanced audio as a WAV file (Ctrl+S). Disabled until audio is enhanced.">⬇️
+              Download WAV</button>
+            <button class="btn btn-ghost" id="reset"
+              aria-label="Clear the current file and reset all settings (Ctrl+R)">Clear</button>
           </div>
 
           <div class="status" id="status"></div>
@@ -1381,7 +1426,7 @@
 
   <footer>
     <div class="container foot-inner">
-      <div class="logo"><img class="mark" src="logo.png" alt="CleanTone logo" /><span class="name">CleanTone</span></div>
+      <div class="logo"><span class="mark">🎵</span><span class="name">CleanTone</span></div>
       <div class="muted">All processing happens locally in your browser — your audio never leaves your device.</div>
       <div class="muted" id="totalCount"></div>
     </div>
@@ -1455,9 +1500,9 @@
       if (!active) return;
       const p = PRESETS[active.dataset.preset];
       const matches = parseInt(els.sNoise.value) === p.noise &&
-                     parseInt(els.sHP.value) === p.hp &&
-                     parseInt(els.sClarity.value) === p.clarity &&
-                     parseInt(els.sWarmth.value) === p.warmth;
+        parseInt(els.sHP.value) === p.hp &&
+        parseInt(els.sClarity.value) === p.clarity &&
+        parseInt(els.sWarmth.value) === p.warmth;
       active.style.opacity = matches ? '1' : '0.7';
       active.title = matches ? active.title : active.title + ' (modified)';
     };
@@ -1629,10 +1674,16 @@
     /* ---------- Enhancement engine ---------- */
     async function enhance() {
       if (!decodedBuffer) { showStatus('Load an audio file first.', 'err'); return; }
+      if (enhancedBuffer && els.enhance.dataset.lastSettings === `${els.sNoise.value}-${els.sHP.value}-${els.sClarity.value}-${els.sWarmth.value}`) {
+        showStatus('Already enhanced with these exact settings — check below.', 'ok');
+        return;
+      }
+      els.enhance.dataset.lastSettings = `${els.sNoise.value}-${els.sHP.value}-${els.sClarity.value}-${els.sWarmth.value}`;
       els.enhance.disabled = true;
       els.enhance.innerHTML = '<span class="spinner"></span> Enhancing…';
       els.filebar.classList.add('processing');
       els.progressBar.classList.add('show');
+      document.title = 'Enhancing... - CleanTone';
       const estTime = Math.ceil(decodedBuffer.duration * 0.15);
       showStatus(`Processing ${fmtDuration(decodedBuffer.duration)} of audio (~${estTime}s)…`, 'ok');
       const startTime = performance.now();
@@ -1723,6 +1774,8 @@
         const snr = (sig, buf) => { const f = Math.pow(10, noiseFloorDb(buf) / 20); return f > 0 ? 20 * Math.log10(sig / f) : 60; };
         const snrImprove = snr(newRms, rendered) - snr(origRms, src);
         els.statNoise.textContent = '-' + Math.max(0, snrImprove).toFixed(1) + ' dB';
+        localStorage.setItem('ct_total_db', (parseFloat(localStorage.getItem('ct_total_db') || '0') + Math.max(0, snrImprove)).toFixed(1));
+
         els.statGain.textContent = (loudGain >= 0 ? '+' : '') + loudGain.toFixed(1) + ' dB';
         els.statDur.textContent = src.duration.toFixed(1) + 's';
         els.statSR.textContent = (src.sampleRate / 1000) + ' kHz';
@@ -1745,6 +1798,7 @@
         els.enhance.innerHTML = '✨ Enhance audio';
         els.filebar.classList.remove('processing');
         els.progressBar.classList.remove('show');
+        document.title = 'CleanTone - Studio-Grade Audio Cleanup, In Your Browser';
       }
     }
     function rmsOf(buffer) { const d = buffer.getChannelData(0); let sum = 0; for (let i = 0; i < d.length; i++)sum += d[i] * d[i]; return Math.sqrt(sum / d.length); }
@@ -1898,7 +1952,7 @@
       document.body.appendChild(a);
       try {
         a.click();
-        showStatus('Download started', 'ok');
+        showStatus(`Downloaded as "${filename}"`, 'ok');
       } catch (e) {
         showStatus('Download failed: ' + e.message, 'err');
       }
@@ -1906,6 +1960,9 @@
     });
 
     els.reset.addEventListener('click', () => {
+      if (enhancedWavUrl && els.download.disabled === false) {
+        if (!confirm('You have an enhanced file that is ready. Would you like to clear it anyway without downloading?')) return;
+      }
       originalFile = null; decodedBuffer = null; enhancedBuffer = null;
       if (enhancedWavUrl) { URL.revokeObjectURL(enhancedWavUrl); enhancedWavUrl = null; }
       els.file.value = ''; els.filebar.classList.remove('show'); els.controls.style.display = 'none';
@@ -1959,6 +2016,7 @@
         if (e.key === 'r') { e.preventDefault(); els.reset.click(); }
         if (e.key === 's' && enhancedWavUrl) { e.preventDefault(); els.download.click(); }
       }
+      if (e.key === '?') { helpModal.classList.add('show'); }
     });
 
     let resizeT;
@@ -1993,10 +2051,11 @@
       showStatus('Your browser does not support Web Audio API. Please use Chrome, Firefox, Safari, or Edge.', 'err');
       els.enhance.disabled = true;
       els.file.disabled = true;
-  
+
     }
-    $('totalCount').textContent = 'Files enhanced this session'
-    ${localStorage.getItem('ct_total') || '0'}
+    $('totalCount').textContent = `Files enhanced this session:
+     ${localStorage.getItem('ct_total') || 0}`;
+
   </script>
 </body>
 
