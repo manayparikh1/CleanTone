@@ -4,7 +4,7 @@ CleanTone is a web app I built to clean up and enhance instrument recordings suc
 
 It is not trying to be a professional recording studio. The goal is simple: take an ordinary recording and make it noticeably cleaner, clearer, and louder.
 
-## What it does
+## What does it basically do?
 
 - Upload an MP3 or WAV file (up to 50 MB).
 - Enhance it in one click. The processing chain:
@@ -22,15 +22,14 @@ Everything runs locally in the browser. Your audio is never uploaded to a server
 
 ## How it works under the hood
 
-The cleanup is done with the browser's Web Audio API and some custom signal processing:
+The audio cleanup process is carried out using the Web Audio API of the browser and some custom-made signal processing units:
 
-- a high-pass filter and EQ stages for rumble removal, clarity, and warmth
-- an FFT-based spectral noise reduction stage (short-time Fourier transform with spectral subtraction) that estimates the noise from the quietest parts of the recording and removes it from every frame
-- a noise gate for the gaps, a light compressor for punch, and a final loudness and limiting stage
+- high pass filter and EQs for rumbler suppression, clarity, and warmth
+- spectral noise reduction using FFT (short-time Fourier transform and spectral subtraction), which estimates noise from the quietest moments of the recording and then suppresses it across all frames
+- noise gate for pauses, light compression for punch, and finally loudness/limiting
 
-In testing, this typically improves the signal-to-noise ratio by 15 to 20 dB, and brings quiet recordings up by around 10 dB, while keeping the instrument itself at full level.
-
-## Running it
+On average, this results in increasing the signal-to-noise ratio by 15 to 20 decibels, making quiet recordings louder by about 10 decibels, while leaving the instrument at the maximum volume level.
+## To run it you gotta input:
 
 ```bash
 npm install
@@ -41,7 +40,7 @@ Then open http://localhost:3001 and drop in a file. You do not strictly need the
 
 ## How I built it
 
-I designed the whole thing: the concept, the interface, the controls, the presets, and the way the enhancement should sound. I tuned the processing chain through a lot of back-and-forth testing to get the noise reduction and loudness where I wanted them. I used an AI assistant to help write and debug the Web Audio and FFT code and to speed up the parts that were mostly boilerplate, but the direction, the decisions, and the testing were mine. I did the majority of the work and used the AI as a tool to move faster.
+I came up with the idea and design from top-to-bottom: the concept, the user interface, the control settings, presets, and how the effect is supposed to sound. The process was refined through extensive testing back-and-forth until I got the right balance of noise reduction and loudness. I employed the use of an AI assistant to aid me in coding using Web Audio and FFT and to speed up those parts of the project which were mostly boilerplate. But the design, decision making, and testing were my own. I did most of the work and used AI as an aid to make progress faster. In conclusion, AI greatly aided me in connection such as Claude, Github Copilot, and very little Chatgpt for ideas.
 
 ## Tech
 
