@@ -580,6 +580,15 @@
       }
     }
 
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 12px 30px var(--accent-glow); }
+      50% { box-shadow: 0 12px 40px var(--accent-glow), 0 0 20px var(--accent-glow); }
+    }
+
+    .btn-primary:disabled {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
     .status {
       margin-top: 18px;
       padding: 13px 16px;
