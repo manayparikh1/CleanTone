@@ -1,262 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CleanTone - Audio Enhancement</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: #060910;
-      color: #e8edf8;
+      background: #f5f7fb;
+      color: #1e2533;
       min-height: 100vh;
     }
 
     nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(6,9,16,0.85);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid #1a2438;
+      border-bottom: 1px solid #e0e6ef;
     }
+
     nav .inner {
-      max-width: 1100px; margin: 0 auto; padding: 0 24px;
-      display: flex; align-items: center;
-      justify-content: space-between; height: 62px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
     }
-    .logo { font-weight: 800; font-size: 18px; color: #b8a9f0; }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
+
+    .logo {
+      font-weight: 800;
+      font-size: 18px;
+      color: #5b5fe8;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
     nav a {
-      color: #7a89a8; text-decoration: none;
-      font-size: 14px; font-weight: 600; transition: color 0.15s;
+      color: #5a6a85;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.15s;
     }
-    nav a:hover { color: #e8edf8; }
+
+    nav a:hover {
+      color: #1e2533;
+    }
+
     .nav-cta {
       background: linear-gradient(135deg, #5b5fe8, #9b45e4);
-      color: white; padding: 8px 16px; border-radius: 8px; font-weight: 700;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
     }
 
-    .hero { text-align: center; padding: 60px 24px 20px; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(91,95,232,0.1); border: 1px solid rgba(91,95,232,0.3);
-      color: #b0bdf5; padding: 6px 14px; border-radius: 999px;
-      font-size: 13px; font-weight: 600; margin-bottom: 24px;
+    .hero {
+      text-align: center;
+      padding: 60px 24px 20px;
     }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(91, 95, 232, 0.1);
+      border: 1px solid rgba(91, 95, 232, 0.3);
+      color: #b0bdf5;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
     .dot {
-      width: 7px; height: 7px; border-radius: 50%; background: #10b981;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
       animation: blink 2s infinite;
     }
-    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+    }
 
     h1 {
-      font-size: clamp(32px, 5vw, 56px); font-weight: 800;
-      line-height: 1.1; letter-spacing: -1px; margin-bottom: 18px;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 18px;
     }
+
     .grad {
       background: linear-gradient(120deg, #7b80f0, #b870e8, #20cce0);
-      -webkit-background-clip: text; background-clip: text;
+      -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .sub {
-      color: #7a89a8; font-size: clamp(15px, 2vw, 18px);
-      max-width: 620px; margin: 0 auto; line-height: 1.65;
+      color: #5a6a85;
+      font-size: clamp(15px, 2vw, 18px);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.65;
     }
 
-    .wrapper { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-    .app-section { padding: 28px 0 48px; }
+    .wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .app-section {
+      padding: 28px 0 48px;
+    }
 
     .card {
-      background: linear-gradient(180deg, #111928, #0c1220);
-      border: 1px solid #1e2d48; border-radius: 16px; padding: 24px;
+      background: #ffffff;
+      border: 1px solid #e0e6ef;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
 
     .dropzone {
-      display: block; text-align: center; border: 2px dashed #2e3e5e;
-      border-radius: 12px; padding: 48px 24px; cursor: pointer;
-      background: #080e1c; transition: all 0.2s;
+      display: block;
+      text-align: center;
+      border: 2px dashed #c5cfe8;
+      border-radius: 12px;
+      padding: 48px 24px;
+      cursor: pointer;
+      background: #f0f4ff;
+      transition: all 0.2s;
     }
-    .dropzone:hover, .dropzone.over {
-      border-color: #5b5fe8; background: #0b1228;
-    }
-    .dropzone .dz-icon { font-size: 36px; margin-bottom: 14px; }
-    .dropzone .dz-main { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-    .dropzone .dz-sub { color: #5a6880; font-size: 13px; }
 
-    input[type=file] { display: none; }
+    .dropzone:hover,
+    .dropzone.over {
+      border-color: #5b5fe8;
+      background: #e8edff;
+    }
+
+    .dropzone .dz-icon {
+      font-size: 36px;
+      margin-bottom: 14px;
+    }
+
+    .dropzone .dz-main {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .dropzone .dz-sub {
+      color: #8090b0;
+      font-size: 13px;
+    }
+
+    input[type=file] {
+      display: none;
+    }
 
     .filebox {
-      display: none; align-items: center; gap: 12px;
-      margin-top: 16px; padding: 12px 16px;
-      background: #131f33; border: 1px solid #1e2d48; border-radius: 10px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #f0f4ff;
+      border: 1px solid #d0d8ee;
+      border-radius: 10px;
     }
-    .filebox.show { display: flex; }
-    .filebox .fi { font-size: 22px; }
-    .fname { font-weight: 700; }
-    .finfo { color: #7a89a8; font-size: 13px; margin-top: 2px; }
 
-    .controls { display: none; margin-top: 22px; }
+    .filebox.show {
+      display: flex;
+    }
+
+    .filebox .fi {
+      font-size: 22px;
+    }
+
+    .fname {
+      font-weight: 700;
+    }
+
+    .finfo {
+      color: #5a6a85;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .controls {
+      display: none;
+      margin-top: 22px;
+    }
 
     .sec-lbl {
-      font-size: 12px; font-weight: 800; color: #7a89a8;
-      letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #8090b0;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
 
-    .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .pre-btn {
-      padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 700;
-      cursor: pointer; border: 1px solid #1e2d48; background: #131f33;
-      color: #7a89a8; transition: all 0.2s;
+    .presets {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
     }
-    .pre-btn:hover { color: #e8edf8; border-color: #3a4d6e; }
+
+    .pre-btn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid #d0d8ee;
+      background: #f0f4ff;
+      color: #5a6a85;
+      transition: all 0.2s;
+    }
+
+    .pre-btn:hover {
+      color: #1e2533;
+      border-color: #5b5fe8;
+    }
+
     .pre-btn.on {
       background: linear-gradient(135deg, #5b5fe8, #9b45e4);
-      color: white; border-color: transparent;
+      color: white;
+      border-color: transparent;
     }
 
     .sliders {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 18px 28px; margin-bottom: 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 28px;
+      margin-bottom: 22px;
     }
-    @media (max-width: 600px) { .sliders { grid-template-columns: 1fr; } }
+
+    @media (max-width: 600px) {
+      .sliders {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .slider-row label {
-      display: flex; justify-content: space-between;
-      font-size: 13px; margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
     }
-    .sname { font-weight: 700; color: #e8edf8; }
-    .sval { color: #9da8c5; font-weight: 700; }
+
+    .sname {
+      font-weight: 700;
+      color: #1e2533;
+    }
+
+    .sval {
+      color: #5b5fe8;
+      font-weight: 700;
+    }
 
     input[type=range] {
-      -webkit-appearance: none; appearance: none;
-      width: 100%; height: 5px;
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
       background: linear-gradient(90deg, #5b5fe8, #1e2d48);
-      border-radius: 999px; outline: none;
-    }
-    input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 17px; height: 17px;
-      background: white; border-radius: 50%;
-      border: 3px solid #5b5fe8; cursor: pointer;
+      border-radius: 999px;
+      outline: none;
     }
 
-    .buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 17px;
+      height: 17px;
+      background: white;
+      border-radius: 50%;
+      border: 3px solid #5b5fe8;
+      cursor: pointer;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .btn {
-      padding: 12px 22px; border-radius: 10px; font-size: 14px;
-      font-weight: 800; cursor: pointer; border: none;
-      display: inline-flex; align-items: center; gap: 8px; transition: all 0.15s;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
     }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
     .btn-main {
-      background: linear-gradient(135deg, #5b5fe8, #9b45e4); color: white;
+      background: linear-gradient(135deg, #5b5fe8, #9b45e4);
+      color: white;
     }
-    .btn-main:not(:disabled):hover { transform: translateY(-1px); }
-    .btn-out { background: #131f33; color: #e8edf8; border: 1px solid #1e2d48; }
-    .btn-out:not(:disabled):hover { background: #1a2840; }
+
+    .btn-main:not(:disabled):hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-out {
+      background: #f0f4ff;
+      color: #1e2533;
+      border: 1px solid #d0d8ee;
+    }
+
+    .btn-out:not(:disabled):hover {
+      background: #e4eaff;
+    }
 
     .msg {
-      margin-top: 14px; padding: 11px 14px; border-radius: 9px;
-      font-size: 14px; font-weight: 600; display: none;
+      margin-top: 14px;
+      padding: 11px 14px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      display: none;
     }
-    .msg.show { display: block; }
-    .msg.ok { background: rgba(16,185,129,0.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
-    .msg.err { background: rgba(248,113,113,0.12); color: #fca5a5; border: 1px solid rgba(248,113,113,0.3); }
+
+    .msg.show {
+      display: block;
+    }
+
+    .msg.ok {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .msg.err {
+      background: rgba(248, 113, 113, 0.1);
+      color: #dc2626;
+      border: 1px solid rgba(248, 113, 113, 0.3);
+    }
 
     .results {
-      display: none; margin-top: 24px;
-      grid-template-columns: 1fr 1fr; gap: 16px;
+      display: none;
+      margin-top: 24px;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
-    .results.show { display: grid; }
-    @media (max-width: 700px) { .results.show { grid-template-columns: 1fr; } }
+
+    .results.show {
+      display: grid;
+    }
+
+    @media (max-width: 700px) {
+      .results.show {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .track {
-      background: #131f33; border: 1px solid #1e2d48;
-      border-radius: 12px; padding: 16px;
+      background: #ffffff;
+      border: 1px solid #e0e6ef;
+      border-radius: 12px;
+      padding: 16px;
     }
-    .track.clean { border-color: rgba(16,185,129,0.35); }
-    .track h4 { font-size: 13px; font-weight: 800; margin-bottom: 12px; }
-    .track.orig h4 { color: #7a89a8; }
-    .track.clean h4 { color: #34d399; }
+
+    .track.clean {
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    .track h4 {
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .track.orig h4 {
+      color: #5a6a85;
+    }
+
+    .track.clean h4 {
+      color: #34d399;
+    }
 
     canvas {
-      width: 100%; height: 88px; display: block;
-      border-radius: 8px; background: #06090f; margin-bottom: 10px;
+      width: 100%;
+      height: 88px;
+      display: block;
+      border-radius: 8px;
+      background: #eef1f8;
+      margin-bottom: 10px;
     }
-    audio { width: 100%; }
+
+    audio {
+      width: 100%;
+    }
 
     .stats-row {
-      display: none; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 18px;
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 18px;
     }
-    .stats-row.show { display: grid; }
-    @media (max-width: 600px) { .stats-row.show { grid-template-columns: repeat(2,1fr); } }
-    .stat {
-      background: #131f33; border: 1px solid #1e2d48;
-      border-radius: 10px; padding: 14px; text-align: center;
-    }
-    .stat-lbl { font-size: 11px; color: #5a6880; text-transform: uppercase; letter-spacing: 0.6px; }
-    .stat-val { font-size: 21px; font-weight: 800; margin-top: 6px; color: #b0bdf5; }
 
-    section.features { padding: 60px 0; }
-    .sec-head { text-align: center; margin-bottom: 42px; }
+    .stats-row.show {
+      display: grid;
+    }
+
+    @media (max-width: 600px) {
+      .stats-row.show {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat {
+      background: #ffffff;
+      border: 1px solid #e0e6ef;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat-lbl {
+      font-size: 11px;
+      color: #8090b0;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .stat-val {
+      font-size: 21px;
+      font-weight: 800;
+      margin-top: 6px;
+      color: #5b5fe8;
+    }
+
+    section.features {
+      padding: 60px 0;
+    }
+
+    .sec-head {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
     .eyebrow {
-      color: #9da8c5; font-size: 12px; font-weight: 800;
-      letter-spacing: 1.5px; text-transform: uppercase;
+      color: #8090b0;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
     }
+
     .sec-head h2 {
-      font-size: clamp(26px, 3.5vw, 38px); font-weight: 800;
-      margin: 10px 0 12px; letter-spacing: -0.5px;
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 800;
+      margin: 10px 0 12px;
+      letter-spacing: -0.5px;
     }
-    .sec-head p { color: #7a89a8; font-size: 16px; line-height: 1.6; }
+
+    .sec-head p {
+      color: #5a6a85;
+      font-size: 16px;
+      line-height: 1.6;
+    }
 
     .feat-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
-    @media (max-width: 800px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 500px) { .feat-grid { grid-template-columns: 1fr; } }
-    .feat {
-      background: #0d1422; border: 1px solid #1a2438;
-      border-radius: 14px; padding: 24px; transition: transform 0.2s;
-    }
-    .feat:hover { transform: translateY(-3px); }
-    .feat .ficon { font-size: 28px; margin-bottom: 14px; }
-    .feat h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
-    .feat p { color: #7a89a8; font-size: 14px; line-height: 1.6; }
 
-    section.how { padding: 60px 0; }
-    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    @media (max-width: 700px) { .steps { grid-template-columns: 1fr; } }
+    @media (max-width: 800px) {
+      .feat-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .feat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feat {
+      background: #ffffff;
+      border: 1px solid #e0e6ef;
+      border-radius: 14px;
+      padding: 24px;
+      transition: transform 0.2s;
+    }
+
+    .feat:hover {
+      transform: translateY(-3px);
+    }
+
+    .feat .ficon {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+
+    .feat h3 {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .feat p {
+      color: #5a6a85;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    section.how {
+      padding: 60px 0;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 700px) {
+      .steps {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .step {
-      background: #0d1422; border: 1px solid #1a2438;
-      border-radius: 14px; padding: 26px;
+      background: #ffffff;
+      border: 1px solid #e0e6ef;
+      border-radius: 14px;
+      padding: 26px;
     }
+
     .step-num {
-      width: 38px; height: 38px; border-radius: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
       background: linear-gradient(135deg, #5b5fe8, #9b45e4);
-      display: grid; place-items: center;
-      font-weight: 800; font-size: 16px; color: white; margin-bottom: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: white;
+      margin-bottom: 14px;
     }
-    .step h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
-    .step p { color: #7a89a8; font-size: 14px; line-height: 1.6; }
+
+    .step h3 {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: #5a6a85;
+      font-size: 14px;
+      line-height: 1.6;
+    }
 
     footer {
-      border-top: 1px solid #1a2438; padding: 28px 24px; margin-top: 40px;
+      border-top: 1px solid #e0e6ef;
+      padding: 28px 24px;
+      margin-top: 40px;
     }
+
     .foot-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 12px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
-    .foot-logo { font-weight: 800; color: #b8a9f0; }
-    .foot-note { color: #4a5570; font-size: 13px; }
+
+    .foot-logo {
+      font-weight: 800;
+      color: #5b5fe8;
+    }
+
+    .foot-note {
+      color: #8090b0;
+      font-size: 13px;
+    }
 
     .spinner {
-      width: 14px; height: 14px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
-      animation: spin 0.7s linear infinite; display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <nav>
@@ -273,7 +657,8 @@
   <div class="hero">
     <div class="badge"><span class="dot"></span> Runs 100% in your browser</div>
     <h1>Make your recordings<br><span class="grad">actually sound good.</span></h1>
-    <p class="sub">CleanTone removes background hiss and noise, boosts clarity, and evens out volume — all locally in your browser. Nothing gets uploaded.</p>
+    <p class="sub">CleanTone removes background hiss and noise, boosts clarity, and evens out volume — all locally in
+      your browser. Nothing gets uploaded.</p>
   </div>
 
   <div class="app-section" id="app">
@@ -461,11 +846,11 @@
     var origFile = null;
 
     var PRESETS = {
-      balanced: { noise: 75, hp: 100, clarity: 8,  warmth: 2 },
-      voice:    { noise: 82, hp: 120, clarity: 9,  warmth: 1 },
-      strings:  { noise: 68, hp: 80,  clarity: 7,  warmth: 4 },
-      wind:     { noise: 78, hp: 110, clarity: 10, warmth: 0 },
-      max:      { noise: 95, hp: 130, clarity: 12, warmth: 1 },
+      balanced: { noise: 75, hp: 100, clarity: 8, warmth: 2 },
+      voice: { noise: 82, hp: 120, clarity: 9, warmth: 1 },
+      strings: { noise: 68, hp: 80, clarity: 7, warmth: 4 },
+      wind: { noise: 78, hp: 110, clarity: 10, warmth: 0 },
+      max: { noise: 95, hp: 130, clarity: 12, warmth: 1 },
     };
 
     function el(id) { return document.getElementById(id); }
@@ -478,15 +863,15 @@
       el('vWarmth').textContent = (w >= 0 ? '+' : '') + w + ' dB';
     }
 
-    ['sNoise','sHP','sClarity','sWarmth'].forEach(function(s) {
+    ['sNoise', 'sHP', 'sClarity', 'sWarmth'].forEach(function (s) {
       el(s).addEventListener('input', updateLabels);
     });
     updateLabels();
 
-    el('presets').addEventListener('click', function(e) {
+    el('presets').addEventListener('click', function (e) {
       var btn = e.target.closest('.pre-btn');
       if (!btn) return;
-      document.querySelectorAll('.pre-btn').forEach(function(b) { b.classList.remove('on'); });
+      document.querySelectorAll('.pre-btn').forEach(function (b) { b.classList.remove('on'); });
       btn.classList.add('on');
       var p = PRESETS[btn.dataset.p];
       el('sNoise').value = p.noise;
@@ -499,14 +884,14 @@
     });
 
     var dropEl = el('drop');
-    dropEl.addEventListener('dragover', function(e) { e.preventDefault(); dropEl.classList.add('over'); });
-    dropEl.addEventListener('dragleave', function() { dropEl.classList.remove('over'); });
-    dropEl.addEventListener('drop', function(e) {
+    dropEl.addEventListener('dragover', function (e) { e.preventDefault(); dropEl.classList.add('over'); });
+    dropEl.addEventListener('dragleave', function () { dropEl.classList.remove('over'); });
+    dropEl.addEventListener('drop', function (e) {
       e.preventDefault();
       dropEl.classList.remove('over');
       if (e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]);
     });
-    el('fileInput').addEventListener('change', function(e) {
+    el('fileInput').addEventListener('change', function (e) {
       if (e.target.files.length) loadFile(e.target.files[0]);
     });
 
@@ -519,11 +904,11 @@
 
     function fmtBytes(b) {
       if (b < 1024) return b + ' B';
-      if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
-      return (b/1048576).toFixed(2) + ' MB';
+      if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+      return (b / 1048576).toFixed(2) + ' MB';
     }
     function fmtTime(s) {
-      var m = Math.floor(s/60), sec = Math.floor(s%60);
+      var m = Math.floor(s / 60), sec = Math.floor(s % 60);
       return m > 0 ? m + 'm ' + sec + 's' : sec + 's';
     }
 
@@ -547,11 +932,11 @@
         audioBuffer = await ctx.decodeAudioData(arr);
         ctx.close();
         var ch = audioBuffer.numberOfChannels === 1 ? 'mono' : 'stereo';
-        el('finfo').textContent = fmtBytes(file.size) + ' · ' + fmtTime(audioBuffer.duration) + ' · ' + (audioBuffer.sampleRate/1000) + 'kHz ' + ch;
+        el('finfo').textContent = fmtBytes(file.size) + ' · ' + fmtTime(audioBuffer.duration) + ' · ' + (audioBuffer.sampleRate / 1000) + 'kHz ' + ch;
         el('audioA').src = URL.createObjectURL(file);
         drawWave(el('canvasA'), audioBuffer, '#7a89a8');
         el('results').classList.add('show');
-      } catch(err) {
+      } catch (err) {
         showMsg('Could not decode the file. Try a different MP3 or WAV.', 'err');
         console.error(err);
       }
@@ -646,7 +1031,7 @@
 
         softLimit(rendered, 0.85);
         var peak = getPeak(rendered);
-        var ceil = Math.pow(10, -1/20);
+        var ceil = Math.pow(10, -1 / 20);
         if (peak > ceil) {
           var norm = ceil / peak;
           for (var c = 0; c < rendered.numberOfChannels; c++) {
@@ -674,7 +1059,7 @@
 
         var elapsed = ((performance.now() - t0) / 1000).toFixed(1);
         showMsg('Done in ' + elapsed + 's! Listen below, then download when ready.', 'ok');
-      } catch(err) {
+      } catch (err) {
         showMsg('Something went wrong: ' + err.message, 'err');
         console.error(err);
       } finally {
@@ -698,12 +1083,12 @@
       var vals = [];
       for (var s = 0; s + frameSize <= d.length; s += frameSize) {
         var sum = 0;
-        for (var i = 0; i < frameSize; i++) sum += d[s+i] * d[s+i];
+        for (var i = 0; i < frameSize; i++) sum += d[s + i] * d[s + i];
         vals.push(Math.sqrt(sum / frameSize));
       }
       if (!vals.length) return 0;
-      vals.sort(function(a,b){ return a-b; });
-      return vals[Math.floor(vals.length * 0.85)] || vals[vals.length-1];
+      vals.sort(function (a, b) { return a - b; });
+      return vals[Math.floor(vals.length * 0.85)] || vals[vals.length - 1];
     }
 
     function getNoiseFloor(buf) {
@@ -712,7 +1097,7 @@
       var best = Infinity;
       for (var s = 0; s + win <= d.length; s += win) {
         var sum = 0;
-        for (var i = 0; i < win; i++) sum += d[s+i] * d[s+i];
+        for (var i = 0; i < win; i++) sum += d[s + i] * d[s + i];
         var rms = Math.sqrt(sum / win);
         if (rms < best) best = rms;
       }
@@ -734,17 +1119,17 @@
       for (var i = 0; i < len; i++) {
         var s = 0;
         for (var c = 0; c < ch; c++) { var a = Math.abs(chans[c][i]); if (a > s) s = a; }
-        env = s > env ? eAtk * env + (1-eAtk)*s : eRel * env + (1-eRel)*s;
+        env = s > env ? eAtk * env + (1 - eAtk) * s : eRel * env + (1 - eRel) * s;
         envArr[i] = env;
       }
-      var gAtk = Math.exp(-1/(sr*0.003)), gRel = Math.exp(-1/(sr*0.045));
+      var gAtk = Math.exp(-1 / (sr * 0.003)), gRel = Math.exp(-1 / (sr * 0.045));
       var g = floorG;
       for (var i = 0; i < len; i++) {
         var e = envArr[i], target;
         if (e >= openT) target = 1;
         else if (e <= closeT) target = floorG;
-        else { var r = (e-closeT)/(openT-closeT); target = floorG + (1-floorG)*r*r; }
-        g = target < g ? gRel*g + (1-gRel)*target : gAtk*g + (1-gAtk)*target;
+        else { var r = (e - closeT) / (openT - closeT); target = floorG + (1 - floorG) * r * r; }
+        g = target < g ? gRel * g + (1 - gRel) * target : gAtk * g + (1 - gAtk) * target;
         for (var c = 0; c < ch; c++) chans[c][i] *= g;
       }
     }
@@ -755,7 +1140,7 @@
         var bit = n >> 1;
         for (; j & bit; bit >>= 1) j ^= bit;
         j ^= bit;
-        if (i < j) { var t=re[i]; re[i]=re[j]; re[j]=t; t=im[i]; im[i]=im[j]; im[j]=t; }
+        if (i < j) { var t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; }
       }
       for (var len = 2; len <= n; len <<= 1) {
         var ang = (inverse ? 2 : -2) * Math.PI / len;
@@ -763,21 +1148,21 @@
         for (var i = 0; i < n; i += len) {
           var wr = 1, wi = 0;
           for (var k = 0; k < half; k++) {
-            var a = i+k, b = i+k+half;
-            var vr = re[b]*wr - im[b]*wi, vi = re[b]*wi + im[b]*wr;
-            re[b]=re[a]-vr; im[b]=im[a]-vi; re[a]+=vr; im[a]+=vi;
-            var nwr = wr*wlr - wi*wli; wi = wr*wli + wi*wlr; wr = nwr;
+            var a = i + k, b = i + k + half;
+            var vr = re[b] * wr - im[b] * wi, vi = re[b] * wi + im[b] * wr;
+            re[b] = re[a] - vr; im[b] = im[a] - vi; re[a] += vr; im[a] += vi;
+            var nwr = wr * wlr - wi * wli; wi = wr * wli + wi * wlr; wr = nwr;
           }
         }
       }
-      if (inverse) { for (var i = 0; i < n; i++) { re[i]/=n; im[i]/=n; } }
+      if (inverse) { for (var i = 0; i < n; i++) { re[i] /= n; im[i] /= n; } }
     }
 
     function spectralDenoise(input, amount) {
       if (amount <= 0) return input.slice();
       var N = 2048, hop = 512;
       var win = new Float32Array(N);
-      for (var i = 0; i < N; i++) win[i] = 0.5 - 0.5 * Math.cos(2*Math.PI*i/(N-1));
+      for (var i = 0; i < N; i++) win[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1));
       var len = input.length;
       var re = new Float32Array(N), im = new Float32Array(N);
       var starts = [];
@@ -787,7 +1172,7 @@
       for (var f = 0; f < starts.length; f++) {
         var st = starts[f], e = 0;
         for (var i = 0; i < N; i++) {
-          var idx = st+i;
+          var idx = st + i;
           var val = idx < len ? input[idx] * win[i] : 0;
           e += val * val;
         }
@@ -795,14 +1180,14 @@
       }
 
       var sorted = Float32Array.from(energy).sort();
-      var thr = sorted[Math.floor(sorted.length * 0.12)] || sorted[sorted.length-1];
+      var thr = sorted[Math.floor(sorted.length * 0.12)] || sorted[sorted.length - 1];
       var noiseP = new Float32Array(N), nCount = 0;
       for (var f = 0; f < starts.length; f++) {
         if (energy[f] > thr) continue;
         var st = starts[f];
-        for (var i = 0; i < N; i++) { var idx=st+i; re[i]=idx<len?input[idx]*win[i]:0; im[i]=0; }
+        for (var i = 0; i < N; i++) { var idx = st + i; re[i] = idx < len ? input[idx] * win[i] : 0; im[i] = 0; }
         doFFT(re, im, false);
-        for (var b = 0; b < N; b++) noiseP[b] += re[b]*re[b] + im[b]*im[b];
+        for (var b = 0; b < N; b++) noiseP[b] += re[b] * re[b] + im[b] * im[b];
         nCount++;
       }
       if (nCount > 0) { for (var b = 0; b < N; b++) noiseP[b] = Math.sqrt(noiseP[b] / nCount); }
@@ -812,10 +1197,10 @@
       var floorG = Math.max(0.04, 1 - amount * 1.05);
       for (var s = 0; s < starts.length; s++) {
         var st = starts[s];
-        for (var i = 0; i < N; i++) { var idx=st+i; re[i]=idx<len?input[idx]*win[i]:0; im[i]=0; }
+        for (var i = 0; i < N; i++) { var idx = st + i; re[i] = idx < len ? input[idx] * win[i] : 0; im[i] = 0; }
         doFFT(re, im, false);
         for (var b = 0; b < N; b++) {
-          var m = Math.sqrt(re[b]*re[b] + im[b]*im[b]);
+          var m = Math.sqrt(re[b] * re[b] + im[b] * im[b]);
           if (m > 0) {
             var g = (m - beta * noiseP[b]) / m;
             if (g < floorG) g = floorG;
@@ -825,8 +1210,8 @@
         }
         doFFT(re, im, true);
         for (var i = 0; i < N; i++) {
-          var idx = st+i;
-          if (idx < len) { out[idx] += re[i]*win[i]; wsum[idx] += win[i]*win[i]; }
+          var idx = st + i;
+          if (idx < len) { out[idx] += re[i] * win[i]; wsum[idx] += win[i] * win[i]; }
         }
       }
       for (var i = 0; i < len; i++) { if (wsum[i] > 1e-8) out[i] /= wsum[i]; }
@@ -834,17 +1219,17 @@
     }
 
     function compress(buf, threshDb, ratio, makeupDb) {
-      var sr=buf.sampleRate, ch=buf.numberOfChannels, len=buf.length;
+      var sr = buf.sampleRate, ch = buf.numberOfChannels, len = buf.length;
       var chans = [];
       for (var c = 0; c < ch; c++) chans.push(buf.getChannelData(c));
-      var thr = Math.pow(10, threshDb/20), makeup = Math.pow(10, makeupDb/20);
-      var atk = Math.exp(-1/(sr*0.005)), rel = Math.exp(-1/(sr*0.120));
+      var thr = Math.pow(10, threshDb / 20), makeup = Math.pow(10, makeupDb / 20);
+      var atk = Math.exp(-1 / (sr * 0.005)), rel = Math.exp(-1 / (sr * 0.120));
       var env = 0;
       for (var i = 0; i < len; i++) {
         var s = 0;
-        for (var c = 0; c < ch; c++) { var a=Math.abs(chans[c][i]); if(a>s)s=a; }
-        env = s > env ? atk*env+(1-atk)*s : rel*env+(1-rel)*s;
-        var g = env > thr ? Math.pow(env/thr, 1/ratio-1) : 1;
+        for (var c = 0; c < ch; c++) { var a = Math.abs(chans[c][i]); if (a > s) s = a; }
+        env = s > env ? atk * env + (1 - atk) * s : rel * env + (1 - rel) * s;
+        var g = env > thr ? Math.pow(env / thr, 1 / ratio - 1) : 1;
         for (var c = 0; c < ch; c++) chans[c][i] *= g * makeup;
       }
     }
@@ -864,21 +1249,21 @@
     }
 
     function bufToWav(buf) {
-      var numCh=buf.numberOfChannels, sr=buf.sampleRate, frames=buf.length;
-      var blockAlign=numCh*2, dataSize=frames*blockAlign;
-      var ab=new ArrayBuffer(44+dataSize), view=new DataView(ab);
-      function ws(o,s){ for(var i=0;i<s.length;i++) view.setUint8(o+i, s.charCodeAt(i)); }
-      ws(0,'RIFF'); view.setUint32(4, 36+dataSize, true);
-      ws(8,'WAVE'); ws(12,'fmt ');
-      view.setUint32(16,16,true); view.setUint16(20,1,true);
-      view.setUint16(22,numCh,true); view.setUint32(24,sr,true);
-      view.setUint32(28,sr*blockAlign,true); view.setUint16(32,blockAlign,true);
-      view.setUint16(34,16,true); ws(36,'data'); view.setUint32(40,dataSize,true);
+      var numCh = buf.numberOfChannels, sr = buf.sampleRate, frames = buf.length;
+      var blockAlign = numCh * 2, dataSize = frames * blockAlign;
+      var ab = new ArrayBuffer(44 + dataSize), view = new DataView(ab);
+      function ws(o, s) { for (var i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); }
+      ws(0, 'RIFF'); view.setUint32(4, 36 + dataSize, true);
+      ws(8, 'WAVE'); ws(12, 'fmt ');
+      view.setUint32(16, 16, true); view.setUint16(20, 1, true);
+      view.setUint16(22, numCh, true); view.setUint32(24, sr, true);
+      view.setUint32(28, sr * blockAlign, true); view.setUint16(32, blockAlign, true);
+      view.setUint16(34, 16, true); ws(36, 'data'); view.setUint32(40, dataSize, true);
       var chans = [];
-      for (var c=0; c<numCh; c++) chans.push(buf.getChannelData(c));
+      for (var c = 0; c < numCh; c++) chans.push(buf.getChannelData(c));
       var off = 44;
-      for (var i=0; i<frames; i++) {
-        for (var c=0; c<numCh; c++) {
+      for (var i = 0; i < frames; i++) {
+        for (var c = 0; c < numCh; c++) {
           var s = Math.max(-1, Math.min(1, chans[c][i]));
           view.setInt16(off, s < 0 ? s * 0x8000 : s * 0x7fff, true);
           off += 2;
@@ -911,10 +1296,11 @@
       hideMsg();
     }
 
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
       if (audioBuffer) drawWave(el('canvasA'), audioBuffer, '#7a89a8');
       if (enhancedBuf) drawWave(el('canvasB'), enhancedBuf, '#34d399');
     });
   </script>
 </body>
+
 </html>
