@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CleanTone - Audio Enhancement</title>
+  <title>CleanTone - Audio Enhancer</title>
   <style>
     * {
       margin: 0;
@@ -13,9 +13,9 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #f5f7fb;
-      color: #1e2533;
+      font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+      background: #fefec2;
+      color: #1a1a1a;
       min-height: 100vh;
     }
 
@@ -23,9 +23,8 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #e0e6ef;
+      background: #ff6ec7;
+      border-bottom: 4px solid #000;
     }
 
     nav .inner {
@@ -40,8 +39,8 @@
 
     .logo {
       font-weight: 800;
-      font-size: 18px;
-      color: #5b5fe8;
+      font-size: 20px;
+      color: #003cff;
     }
 
     .nav-links {
@@ -51,23 +50,23 @@
     }
 
     nav a {
-      color: #5a6a85;
+      color: #000;
       text-decoration: none;
       font-size: 14px;
-      font-weight: 600;
-      transition: color 0.15s;
+      font-weight: 700;
     }
 
     nav a:hover {
-      color: #1e2533;
+      color: #fff;
     }
 
     .nav-cta {
-      background: linear-gradient(135deg, #5b5fe8, #9b45e4);
-      color: white;
+      background: #39ff14;
+      color: #000;
       padding: 8px 16px;
-      border-radius: 8px;
+      border-radius: 4px;
       font-weight: 700;
+      border: 2px solid #000;
     }
 
     .hero {
@@ -79,13 +78,13 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(91, 95, 232, 0.1);
-      border: 1px solid rgba(91, 95, 232, 0.3);
-      color: #b0bdf5;
+      background: #ffef00;
+      border: 2px solid #000;
+      color: #000;
       padding: 6px 14px;
       border-radius: 999px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 24px;
     }
 
@@ -93,7 +92,7 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #10b981;
+      background: #ff0000;
       animation: blink 2s infinite;
     }
 
@@ -110,23 +109,20 @@
     }
 
     h1 {
-      font-size: clamp(32px, 5vw, 56px);
+      font-size: clamp(28px, 5vw, 46px);
       font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -1px;
+      line-height: 1.2;
       margin-bottom: 18px;
+      color: #d6006c;
     }
 
     .grad {
-      background: linear-gradient(120deg, #7b80f0, #b870e8, #20cce0);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #003cff;
     }
 
     .sub {
-      color: #5a6a85;
-      font-size: clamp(15px, 2vw, 18px);
+      color: #333;
+      font-size: clamp(14px, 2vw, 17px);
       max-width: 620px;
       margin: 0 auto;
       line-height: 1.65;
@@ -143,28 +139,27 @@
     }
 
     .card {
-      background: #ffffff;
-      border: 1px solid #e0e6ef;
-      border-radius: 16px;
+      background: #fff8e7;
+      border: 3px solid #000;
+      border-radius: 10px;
       padding: 24px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      box-shadow: 6px 6px 0 #000;
     }
 
     .dropzone {
       display: block;
       text-align: center;
-      border: 2px dashed #c5cfe8;
-      border-radius: 12px;
+      border: 3px dashed #ff6ec7;
+      border-radius: 8px;
       padding: 48px 24px;
       cursor: pointer;
-      background: #f0f4ff;
-      transition: all 0.2s;
+      background: #fffde7;
     }
 
     .dropzone:hover,
     .dropzone.over {
-      border-color: #5b5fe8;
-      background: #e8edff;
+      border-color: #003cff;
+      background: #eef;
     }
 
     .dropzone .dz-icon {
@@ -179,7 +174,7 @@
     }
 
     .dropzone .dz-sub {
-      color: #8090b0;
+      color: #555;
       font-size: 13px;
     }
 
@@ -193,9 +188,9 @@
       gap: 12px;
       margin-top: 16px;
       padding: 12px 16px;
-      background: #f0f4ff;
-      border: 1px solid #d0d8ee;
-      border-radius: 10px;
+      background: #ffe4ec;
+      border: 2px solid #000;
+      border-radius: 8px;
     }
 
     .filebox.show {
@@ -211,7 +206,7 @@
     }
 
     .finfo {
-      color: #5a6a85;
+      color: #444;
       font-size: 13px;
       margin-top: 2px;
     }
@@ -224,7 +219,7 @@
     .sec-lbl {
       font-size: 12px;
       font-weight: 800;
-      color: #8090b0;
+      color: #444;
       letter-spacing: 0.8px;
       text-transform: uppercase;
       margin-bottom: 10px;
@@ -243,21 +238,20 @@
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
-      border: 1px solid #d0d8ee;
-      background: #f0f4ff;
-      color: #5a6a85;
-      transition: all 0.2s;
+      border: 2px solid #000;
+      background: #fff;
+      color: #333;
     }
 
     .pre-btn:hover {
-      color: #1e2533;
-      border-color: #5b5fe8;
+      color: #000;
+      border-color: #003cff;
     }
 
     .pre-btn.on {
-      background: linear-gradient(135deg, #5b5fe8, #9b45e4);
-      color: white;
-      border-color: transparent;
+      background: #39ff14;
+      color: #000;
+      border-color: #000;
     }
 
     .sliders {
@@ -282,11 +276,11 @@
 
     .sname {
       font-weight: 700;
-      color: #1e2533;
+      color: #111;
     }
 
     .sval {
-      color: #5b5fe8;
+      color: #d6006c;
       font-weight: 700;
     }
 
@@ -294,19 +288,19 @@
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, #5b5fe8, #1e2d48);
+      height: 6px;
+      background: #ffb100;
       border-radius: 999px;
       outline: none;
     }
 
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 17px;
-      height: 17px;
-      background: white;
+      width: 18px;
+      height: 18px;
+      background: #ff6ec7;
       border-radius: 50%;
-      border: 3px solid #5b5fe8;
+      border: 3px solid #000;
       cursor: pointer;
     }
 
@@ -318,15 +312,14 @@
 
     .btn {
       padding: 12px 22px;
-      border-radius: 10px;
+      border-radius: 6px;
       font-size: 14px;
       font-weight: 800;
       cursor: pointer;
-      border: none;
+      border: 2px solid #000;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.15s;
     }
 
     .btn:disabled {
@@ -335,31 +328,31 @@
     }
 
     .btn-main {
-      background: linear-gradient(135deg, #5b5fe8, #9b45e4);
-      color: white;
+      background: #39ff14;
+      color: #000;
     }
 
     .btn-main:not(:disabled):hover {
-      transform: translateY(-1px);
+      background: #2ee60f;
     }
 
     .btn-out {
-      background: #f0f4ff;
-      color: #1e2533;
-      border: 1px solid #d0d8ee;
+      background: #fff;
+      color: #000;
     }
 
     .btn-out:not(:disabled):hover {
-      background: #e4eaff;
+      background: #eee;
     }
 
     .msg {
       margin-top: 14px;
       padding: 11px 14px;
-      border-radius: 9px;
+      border-radius: 6px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       display: none;
+      border: 2px solid #000;
     }
 
     .msg.show {
@@ -367,15 +360,13 @@
     }
 
     .msg.ok {
-      background: rgba(16, 185, 129, 0.1);
-      color: #059669;
-      border: 1px solid rgba(16, 185, 129, 0.3);
+      background: #d4ffd0;
+      color: #036b00;
     }
 
     .msg.err {
-      background: rgba(248, 113, 113, 0.1);
-      color: #dc2626;
-      border: 1px solid rgba(248, 113, 113, 0.3);
+      background: #ffd0d0;
+      color: #8b0000;
     }
 
     .results {
@@ -396,14 +387,14 @@
     }
 
     .track {
-      background: #ffffff;
-      border: 1px solid #e0e6ef;
-      border-radius: 12px;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 8px;
       padding: 16px;
     }
 
     .track.clean {
-      border-color: rgba(16, 185, 129, 0.35);
+      border-color: #039b03;
     }
 
     .track h4 {
@@ -413,20 +404,21 @@
     }
 
     .track.orig h4 {
-      color: #5a6a85;
+      color: #555;
     }
 
     .track.clean h4 {
-      color: #34d399;
+      color: #039b03;
     }
 
     canvas {
       width: 100%;
       height: 88px;
       display: block;
-      border-radius: 8px;
-      background: #eef1f8;
+      border-radius: 6px;
+      background: #fffbe0;
       margin-bottom: 10px;
+      border: 1px solid #ccc;
     }
 
     audio {
@@ -451,25 +443,25 @@
     }
 
     .stat {
-      background: #ffffff;
-      border: 1px solid #e0e6ef;
-      border-radius: 10px;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 8px;
       padding: 14px;
       text-align: center;
     }
 
     .stat-lbl {
       font-size: 11px;
-      color: #8090b0;
+      color: #555;
       text-transform: uppercase;
       letter-spacing: 0.6px;
     }
 
     .stat-val {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 800;
       margin-top: 6px;
-      color: #5b5fe8;
+      color: #d6006c;
     }
 
     section.features {
@@ -482,7 +474,7 @@
     }
 
     .eyebrow {
-      color: #8090b0;
+      color: #003cff;
       font-size: 12px;
       font-weight: 800;
       letter-spacing: 1.5px;
@@ -490,15 +482,15 @@
     }
 
     .sec-head h2 {
-      font-size: clamp(26px, 3.5vw, 38px);
+      font-size: clamp(24px, 3.5vw, 34px);
       font-weight: 800;
       margin: 10px 0 12px;
-      letter-spacing: -0.5px;
+      color: #d6006c;
     }
 
     .sec-head p {
-      color: #5a6a85;
-      font-size: 16px;
+      color: #333;
+      font-size: 15px;
       line-height: 1.6;
     }
 
@@ -521,19 +513,14 @@
     }
 
     .feat {
-      background: #ffffff;
-      border: 1px solid #e0e6ef;
-      border-radius: 14px;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 10px;
       padding: 24px;
-      transition: transform 0.2s;
-    }
-
-    .feat:hover {
-      transform: translateY(-3px);
     }
 
     .feat .ficon {
-      font-size: 28px;
+      font-size: 26px;
       margin-bottom: 14px;
     }
 
@@ -544,63 +531,16 @@
     }
 
     .feat p {
-      color: #5a6a85;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    section.how {
-      padding: 60px 0;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    @media (max-width: 700px) {
-      .steps {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .step {
-      background: #ffffff;
-      border: 1px solid #e0e6ef;
-      border-radius: 14px;
-      padding: 26px;
-    }
-
-    .step-num {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #5b5fe8, #9b45e4);
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 16px;
-      color: white;
-      margin-bottom: 14px;
-    }
-
-    .step h3 {
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .step p {
-      color: #5a6a85;
+      color: #444;
       font-size: 14px;
       line-height: 1.6;
     }
 
     footer {
-      border-top: 1px solid #e0e6ef;
+      border-top: 4px solid #000;
       padding: 28px 24px;
       margin-top: 40px;
+      background: #ff6ec7;
     }
 
     .foot-inner {
@@ -615,11 +555,11 @@
 
     .foot-logo {
       font-weight: 800;
-      color: #5b5fe8;
+      color: #003cff;
     }
 
     .foot-note {
-      color: #8090b0;
+      color: #222;
       font-size: 13px;
     }
 
@@ -627,8 +567,8 @@
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: white;
+      border: 2px solid rgba(0, 0, 0, 0.3);
+      border-top-color: #000;
       animation: spin 0.7s linear infinite;
       display: inline-block;
     }
@@ -648,17 +588,16 @@
       <div class="logo">🎵 CleanTone</div>
       <div class="nav-links">
         <a href="#features">Features</a>
-        <a href="#how">How it works</a>
-        <a href="#app" class="nav-cta">Try it</a>
+        <a href="#app" class="nav-cta">Try it out</a>
       </div>
     </div>
   </nav>
 
   <div class="hero">
-    <div class="badge"><span class="dot"></span> Runs 100% in your browser</div>
-    <h1>Make your recordings<br><span class="grad">actually sound good.</span></h1>
-    <p class="sub">CleanTone removes background hiss and noise, boosts clarity, and evens out volume — all locally in
-      your browser. Nothing gets uploaded.</p>
+    <div class="badge"><span class="dot"></span> Runs in your browser, no upload needed!!</div>
+    <h1>Make your recordings<br><span class="grad">actualy sound good.</span></h1>
+    <p class="sub">CleanTone removes background hiss and noise, boosts clarity, and evens out the volume of your
+      recordings. Everything happens right on your device, we dont see your files.</p>
   </div>
 
   <div class="app-section" id="app">
@@ -666,8 +605,8 @@
       <div class="card">
         <label class="dropzone" id="drop" for="fileInput">
           <div class="dz-icon">⬆️</div>
-          <div class="dz-main">Drop an audio file or click to browse</div>
-          <div class="dz-sub">MP3 or WAV · max 50MB · processed on your device</div>
+          <div class="dz-main">Drop an audio file here or click to browse</div>
+          <div class="dz-sub">MP3 or WAV, max 50MB</div>
         </label>
         <input type="file" id="fileInput" accept=".mp3,.wav,audio/*">
 
@@ -721,8 +660,8 @@
           </div>
 
           <div class="buttons">
-            <button class="btn btn-main" id="enhanceBtn">✨ Enhance</button>
-            <button class="btn btn-out" id="downloadBtn" disabled>⬇️ Download WAV</button>
+            <button class="btn btn-main" id="enhanceBtn">Enhance</button>
+            <button class="btn btn-out" id="downloadBtn" disabled>Download WAV</button>
             <button class="btn btn-out" id="clearBtn">Clear</button>
           </div>
           <div class="msg" id="msg"></div>
@@ -735,7 +674,7 @@
             <audio id="audioA" controls></audio>
           </div>
           <div class="track clean">
-            <h4>✨ Enhanced</h4>
+            <h4>Enhanced</h4>
             <canvas id="canvasB"></canvas>
             <audio id="audioB" controls></audio>
           </div>
@@ -767,8 +706,8 @@
     <div class="wrapper">
       <div class="sec-head">
         <div class="eyebrow">What it does</div>
-        <h2>Everything your recording needs, automatically</h2>
-        <p>The same processing chain audio engineers use, built right into your browser.</p>
+        <h2>Everything your recording needs</h2>
+        <p>Built right into your browser, no installs.</p>
       </div>
       <div class="feat-grid">
         <div class="feat">
@@ -779,54 +718,27 @@
         <div class="feat">
           <div class="ficon">🎚️</div>
           <h3>Rumble removal</h3>
-          <p>Cuts low-frequency handling noise and AC hum that makes recordings sound muddy.</p>
+          <p>Cuts low frequency handling noise and hum that makes recordings sound muddy.</p>
         </div>
         <div class="feat">
           <div class="ficon">✨</div>
           <h3>Clarity boost</h3>
-          <p>Lifts the presence and high-end sparkle so your instrument sounds crisp, not dull.</p>
+          <p>Lifts the presence and high end so your instrument sounds crisp, not dull.</p>
         </div>
         <div class="feat">
           <div class="ficon">📈</div>
-          <h3>Volume normalization</h3>
-          <p>Brings the whole track up to a loud, consistent level without clipping anything.</p>
+          <h3>Volume normalize</h3>
+          <p>Brings the whole track up to a loud, consistant level without clipping.</p>
         </div>
         <div class="feat">
           <div class="ficon">🎵</div>
           <h3>Warmth control</h3>
-          <p>Adjust the low-end body — more warmth for strings, less for voice or wind.</p>
+          <p>Adjust the low end body, more warmth for strings, less for voice or wind.</p>
         </div>
         <div class="feat">
           <div class="ficon">🔒</div>
-          <h3>Totally private</h3>
-          <p>Everything runs in your browser with the Web Audio API. Your file never leaves your device.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="how" id="how">
-    <div class="wrapper">
-      <div class="sec-head">
-        <div class="eyebrow">How it works</div>
-        <h2>Three steps and you're done</h2>
-        <p>No sign-up, no installs, no waiting.</p>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <h3>Upload your file</h3>
-          <p>Drop in any MP3 or WAV — guitar, flute, voice, anything. It stays on your device the whole time.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <h3>Pick a preset and enhance</h3>
-          <p>Choose a preset for your instrument type, tweak the sliders if you want, then hit Enhance.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <h3>Compare and download</h3>
-          <p>Listen to both versions side by side, then download the cleaned-up WAV when you're happy with it.</p>
+          <h3>Private</h3>
+          <p>Runs in your browser with the Web Audio API. Your file never leaves your device.</p>
         </div>
       </div>
     </div>
@@ -835,7 +747,7 @@
   <footer>
     <div class="foot-inner">
       <div class="foot-logo">🎵 CleanTone</div>
-      <div class="foot-note">Your audio never leaves your device — processed entirely in the browser.</div>
+      <div class="foot-note">Your audio never leaves your device.</div>
     </div>
   </footer>
 
@@ -934,7 +846,7 @@
         var ch = audioBuffer.numberOfChannels === 1 ? 'mono' : 'stereo';
         el('finfo').textContent = fmtBytes(file.size) + ' · ' + fmtTime(audioBuffer.duration) + ' · ' + (audioBuffer.sampleRate / 1000) + 'kHz ' + ch;
         el('audioA').src = URL.createObjectURL(file);
-        drawWave(el('canvasA'), audioBuffer, '#7a89a8');
+        drawWave(el('canvasA'), audioBuffer, '#555');
         el('results').classList.add('show');
       } catch (err) {
         showMsg('Could not decode the file. Try a different MP3 or WAV.', 'err');
@@ -1044,7 +956,7 @@
         if (wavUrl) URL.revokeObjectURL(wavUrl);
         wavUrl = URL.createObjectURL(bufToWav(rendered));
         el('audioB').src = wavUrl;
-        drawWave(el('canvasB'), rendered, '#34d399');
+        drawWave(el('canvasB'), rendered, '#039b03');
         el('results').classList.add('show');
 
         var origLvl = getLevel(src), newLvl = getLevel(rendered);
@@ -1064,7 +976,7 @@
         console.error(err);
       } finally {
         el('enhanceBtn').disabled = false;
-        el('enhanceBtn').innerHTML = '✨ Enhance';
+        el('enhanceBtn').innerHTML = 'Enhance';
       }
     }
 
@@ -1297,8 +1209,8 @@
     }
 
     window.addEventListener('resize', function () {
-      if (audioBuffer) drawWave(el('canvasA'), audioBuffer, '#7a89a8');
-      if (enhancedBuf) drawWave(el('canvasB'), enhancedBuf, '#34d399');
+      if (audioBuffer) drawWave(el('canvasA'), audioBuffer, '#555');
+      if (enhancedBuf) drawWave(el('canvasB'), enhancedBuf, '#039b03');
     });
   </script>
 </body>
