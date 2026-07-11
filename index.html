@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanTone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e3f2f9;
+            color: #1a1a1a;
+            min-height: 100vh;
+            font-family: 'Trebuchet MS', sans-serif;
+            padding: 25px 20px;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            font-size: 52px;
+            font-weight: 400;
+            color: #4a3f73;
+            margin-bottom: 8px;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 15px;
+            color: #d97777;
+            font-style: oblique;
+            font-weight: 300;
+        }
+
+        .card {
+            background: #fffbf0;
+            border: 3px solid #3a3a3a;
+            border-radius: 14px;
+            padding: 40px;
+            box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .dropzone {
+            border: 3px dashed #ff9bb5;
+            border-radius: 12px;
+            padding: 55px 30px;
+            text-align: center;
+            cursor: pointer;
+            background: #fffef5;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dropzone:hover {
+            border-color: #d97777;
+            background: #fff9f0;
+            transform: scale(1.01);
+        }
+
+        .dz-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .dz-main {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #3a3a3a;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .dz-sub {
+            font-size: 12px;
+            color: #8b7355;
+            letter-spacing: 1px;
+            font-family: monospace;
+        }
+
+        input[type=file] {
+            display: none;
+        }
+
+        .filebox {
+            display: none;
+            background: #ffd6e8;
+            border: 2px solid #ff9bb5;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-top: 18px;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .filebox.show {
+            display: flex;
+        }
+
+        .filebox .fi {
+            font-size: 26px;
+        }
+
+        .fname {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #4a3f73;
+        }
+
+        .finfo {
+            font-size: 11px;
+            color: #8b7b9b;
+            margin-top: 3px;
+            font-style: italic;
+        }
+
+        .controls {
+            display: none;
+            margin-top: 24px;
+            padding-top: 22px;
+            border-top: 2px dashed #ffb3cc;
+        }
+
+        .sec-lbl {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 9px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #d97777;
+            margin-bottom: 11px;
+            font-weight: 900;
+        }
+
+        .presets {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .pre-btn {
+            padding: 7px 13px;
+            border: 2px solid #3a3a3a;
+            background: #fff;
+            color: #3a3a3a;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.2s;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+
+        .pre-btn:hover {
+            background: #ffd6e8;
+            border-color: #ff9bb5;
+        }
+
+        .pre-btn.on {
+            background: #ff9bb5;
+            color: #fff;
+            border-color: #ff9bb5;
+            transform: scale(1.03);
+        }
+
+        .sliders {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 22px;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 600px) {
+            .sliders {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .slider-row label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .sname {
+            color: #3a3a3a;
+        }
+
+        .sval {
+            color: #ff9bb5;
+            font-weight: 800;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #ffc9dd 0%, #fff0b3 100%);
+            border-radius: 4px;
+            outline: none;
+            border: 2px solid #3a3a3a;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 19px;
+            height: 19px;
+            background: #ff9bb5;
+            border: 3px solid #3a3a3a;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 11px;
+        }
+
+        .btn {
+            font-family: 'Arial Black', sans-serif;
+            padding: 9px 19px;
+            border: 3px solid #3a3a3a;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-main {
+            background: #ff9bb5;
+            color: #fff;
+        }
+
+        .btn-main:not(:disabled):hover {
+            background: #ff7fa8;
+            transform: scale(1.04);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-out {
+            background: #fff;
+            color: #3a3a3a;
+        }
+
+        .btn-out:not(:disabled):hover {
+            background: #ffd6e8;
+            transform: scale(1.04);
+        }
+
+        .msg {
+            display: none;
+            padding: 10px 13px;
+            border-radius: 6px;
+            border: 2px solid #3a3a3a;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 11px;
+            font-family: monospace;
+        }
+
+        .msg.show {
+            display: block;
+        }
+
+        .msg.ok {
+            background: #d4ffd0;
+            color: #1a1a1a;
+        }
+
+        .msg.err {
+            background: #ffc0cb;
+            color: #8b0000;
+        }
+
+        .results {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .results.show {
+            display: grid;
+        }
+
+        @media (max-width: 700px) {
+            .results.show {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .track {
+            background: #fffbf0;
+            border: 3px solid #3a3a3a;
+            border-radius: 9px;
+            padding: 13px;
+        }
+
+        .track.clean {
+            border-color: #6ba83d;
+            background: #f5fff5;
+        }
+
+        .track h4 {
+            font-family: Georgia, serif;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #3a3a3a;
+            font-style: italic;
+        }
+
+        .track.clean h4 {
+            color: #6ba83d;
+        }
+
+        canvas {
+            width: 100%;
+            height: 75px;
+            border: 2px solid #3a3a3a;
+            border-radius: 5px;
+            background: #fffef0;
+            margin-bottom: 9px;
+            display: block;
+        }
+
+        audio {
+            width: 100%;
+            height: 30px;
+        }
+
+        .stats-row {
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .stats-row.show {
+            display: grid;
+        }
+
+        @media (max-width: 600px) {
+            .stats-row.show {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stat {
+            background: linear-gradient(135deg, #ffc9dd 0%, #fff0b3 100%);
+            border: 2px solid #3a3a3a;
+            border-radius: 7px;
+            padding: 11px;
+            text-align: center;
+        }
+
+        .stat-lbl {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #4a3f73;
+            font-weight: 900;
+        }
+
+        .stat-val {
+            font-family: Georgia, serif;
+            font-size: 17px;
+            font-weight: 700;
+            margin-top: 4px;
+            color: #d97777;
+        }
+
+        .spinner {
+            width: 11px;
+            height: 11px;
+            border: 2px solid rgba(58, 58, 58, 0.3);
+            border-top-color: #3a3a3a;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>CleanTone</h1>
+            <p class="subtitle">turn your rough recordings into something listenable</p>
+        </header>
+
+        <div class="card">
+            <label class="dropzone" id="drop" for="fileInput">
+                <div class="dz-icon">🎙️</div>
+                <div class="dz-main">drop your file here</div>
+                <div class="dz-sub">mp3 or wav · under 50mb</div>
+            </label>
+            <input type="file" id="fileInput" accept=".mp3,.wav,audio/*">
+
+            <div class="filebox" id="filebox">
+                <div class="fi">🎵</div>
+                <div>
+                    <div class="fname" id="fname">—</div>
+                    <div class="finfo" id="finfo">—</div>
+                </div>
+            </div>
+
+            <div class="controls" id="controls">
+                <div class="sec-lbl">pick a vibe</div>
+                <div class="presets" id="presets">
+                    <button class="pre-btn on" data-p="balanced">balanced</button>
+                    <button class="pre-btn" data-p="voice">voice</button>
+                    <button class="pre-btn" data-p="strings">strings</button>
+                    <button class="pre-btn" data-p="wind">wind</button>
+                    <button class="pre-btn" data-p="max">nuclear</button>
+                </div>
+
+                <div class="sliders">
+                    <div class="slider-row">
+                        <label for="sNoise">
+                            <span class="sname">noise kill</span>
+                            <span class="sval" id="vNoise">75%</span>
+                        </label>
+                        <input type="range" id="sNoise" min="0" max="100" value="75">
+                    </div>
+                    <div class="slider-row">
+                        <label for="sHP">
+                            <span class="sname">rumble cut</span>
+                            <span class="sval" id="vHP">100 Hz</span>
+                        </label>
+                        <input type="range" id="sHP" min="20" max="250" value="100">
+                    </div>
+                    <div class="slider-row">
+                        <label for="sClarity">
+                            <span class="sname">crisp boost</span>
+                            <span class="sval" id="vClarity">+8</span>
+                        </label>
+                        <input type="range" id="sClarity" min="0" max="14" value="8">
+                    </div>
+                    <div class="slider-row">
+                        <label for="sWarmth">
+                            <span class="sname">bass warmth</span>
+                            <span class="sval" id="vWarmth">+2</span>
+                        </label>
+                        <input type="range" id="sWarmth" min="-4" max="6" value="2">
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-main" id="enhanceBtn">enhance</button>
+                    <button class="btn btn-out" id="downloadBtn" disabled>download</button>
+                    <button class="btn btn-out" id="clearBtn">clear</button>
+                </div>
+                <div class="msg" id="msg"></div>
+            </div>
+
+            <div class="results" id="results">
+                <div class="track">
+                    <h4>original</h4>
+                    <canvas id="canvasA"></canvas>
+                    <audio id="audioA" controls></audio>
+                </div>
+                <div class="track clean">
+                    <h4>cleaned up</h4>
+                    <canvas id="canvasB"></canvas>
+                    <audio id="audioB" controls></audio>
+                </div>
+            </div>
+
+            <div class="stats-row" id="stats">
+                <div class="stat">
+                    <div class="stat-lbl">noise out</div>
+                    <div class="stat-val" id="sNoiseStat">—</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-lbl">volume up</div>
+                    <div class="stat-val" id="sGain">—</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-lbl">length</div>
+                    <div class="stat-val" id="sDur">—</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-lbl">sample rate</div>
+                    <div class="stat-val" id="sSR">—</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var audioBuffer = null, enhancedBuf = null, wavUrl = null, origFile = null;
+        var PRESETS = {
+            balanced: { noise: 75, hp: 100, clarity: 8, warmth: 2 },
+            voice: { noise: 82, hp: 120, clarity: 9, warmth: 1 },
+            strings: { noise: 68, hp: 80, clarity: 7, warmth: 4 },
+            wind: { noise: 78, hp: 110, clarity: 10, warmth: 0 },
+            max: { noise: 95, hp: 130, clarity: 12, warmth: 1 },
+        };
+
+        function el(id) { return document.getElementById(id); }
+
+        function updateLabels() {
+            el('vNoise').textContent = el('sNoise').value + '%';
+            el('vHP').textContent = el('sHP').value + ' Hz';
+            el('vClarity').textContent = '+' + el('sClarity').value;
+            var w = parseInt(el('sWarmth').value);
+            el('vWarmth').textContent = (w >= 0 ? '+' : '') + w;
+        }
+
+        ['sNoise', 'sHP', 'sClarity', 'sWarmth'].forEach(s => el(s).addEventListener('input', updateLabels));
+        updateLabels();
+
+        el('presets').addEventListener('click', e => {
+            var btn = e.target.closest('.pre-btn');
+            if (!btn) return;
+            document.querySelectorAll('.pre-btn').forEach(b => b.classList.remove('on'));
+            btn.classList.add('on');
+            var p = PRESETS[btn.dataset.p];
+            el('sNoise').value = p.noise;
+            el('sHP').value = p.hp;
+            el('sClarity').value = p.clarity;
+            el('sWarmth').value = p.warmth;
+            updateLabels();
+            showMsg('✓ ready', 'ok');
+            setTimeout(hideMsg, 1200);
+        });
+
+        var dropEl = el('drop');
+        dropEl.addEventListener('dragover', e => { e.preventDefault(); dropEl.classList.add('over'); });
+        dropEl.addEventListener('dragleave', () => dropEl.classList.remove('over'));
+        dropEl.addEventListener('drop', e => {
+            e.preventDefault();
+            dropEl.classList.remove('over');
+            if (e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]);
+        });
+        el('fileInput').addEventListener('change', e => {
+            if (e.target.files.length) loadFile(e.target.files[0]);
+        });
+
+        function showMsg(text, type) {
+            var m = el('msg');
+            m.textContent = text;
+            m.className = 'msg show ' + (type || 'ok');
+        }
+        function hideMsg() { el('msg').className = 'msg'; }
+
+        function fmtBytes(b) {
+            if (b < 1024) return b + 'b';
+            if (b < 1048576) return (b / 1024).toFixed(1) + 'kb';
+            return (b / 1048576).toFixed(2) + 'mb';
+        }
+        function fmtTime(s) {
+            var m = Math.floor(s / 60), sec = Math.floor(s % 60);
+            return m > 0 ? m + 'm' + sec + 's' : sec + 's';
+        }
+
+        async function loadFile(file) {
+            if (!file.type.startsWith('audio/') && !file.name.match(/\.(mp3|wav)$/i)) {
+                showMsg('mp3 or wav only', 'err'); return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                showMsg('max 50mb', 'err'); return;
+            }
+            origFile = file;
+            el('fname').textContent = file.name;
+            el('finfo').textContent = fmtBytes(file.size) + ' · loading...';
+            el('filebox').classList.add('show');
+            el('controls').style.display = 'block';
+            hideMsg();
+
+            try {
+                var arr = await file.arrayBuffer();
+                var ctx = new (window.AudioContext || window.webkitAudioContext)();
+                audioBuffer = await ctx.decodeAudioData(arr);
+                ctx.close();
+                var ch = audioBuffer.numberOfChannels === 1 ? 'mono' : 'stereo';
+                el('finfo').textContent = fmtBytes(file.size) + ' · ' + fmtTime(audioBuffer.duration) + ' · ' + (audioBuffer.sampleRate / 1000) + 'k ' + ch;
+                el('audioA').src = URL.createObjectURL(file);
+                drawWave(el('canvasA'), audioBuffer, '#c97a9a');
+                el('results').classList.add('show');
+            } catch (err) {
+                showMsg('cant read file', 'err');
+            }
+        }
+
+        function drawWave(canvas, buf, color) {
+            var dpr = window.devicePixelRatio || 1;
+            var w = canvas.clientWidth || 400, h = canvas.clientHeight || 75;
+            canvas.width = w * dpr; canvas.height = h * dpr;
+            var ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            ctx.clearRect(0, 0, w, h);
+            var data = buf.getChannelData(0);
+            var step = Math.max(1, Math.floor(data.length / w));
+            var mid = h / 2;
+            ctx.fillStyle = color;
+            for (var x = 0; x < w; x++) {
+                var lo = 1, hi = -1;
+                for (var i = 0; i < step; i++) {
+                    var v = data[x * step + i] || 0;
+                    if (v < lo) lo = v;
+                    if (v > hi) hi = v;
+                }
+                ctx.fillRect(x, mid + lo * mid * 0.95, 1, Math.max(1, (hi - lo) * mid * 0.95));
+            }
+        }
+
+        el('enhanceBtn').addEventListener('click', runEnhance);
+        el('downloadBtn').addEventListener('click', doDownload);
+        el('clearBtn').addEventListener('click', clearAll);
+
+        async function runEnhance() {
+            if (!audioBuffer) { showMsg('load file first', 'err'); return; }
+            el('enhanceBtn').disabled = true;
+            el('enhanceBtn').innerHTML = '<span class="spinner"></span> processing';
+            var t0 = performance.now();
+
+            var noiseAmt = parseInt(el('sNoise').value) / 100;
+            var hpFreq = parseInt(el('sHP').value);
+            var clarity = parseInt(el('sClarity').value);
+            var warmth = parseInt(el('sWarmth').value);
+
+            try {
+                var src = audioBuffer;
+                var offline = new OfflineAudioContext(src.numberOfChannels, src.length, src.sampleRate);
+                var node = offline.createBufferSource();
+                node.buffer = src;
+
+                var hp = offline.createBiquadFilter();
+                hp.type = 'highpass'; hp.frequency.value = hpFreq; hp.Q.value = 0.7;
+
+                var hp2 = offline.createBiquadFilter();
+                hp2.type = 'highpass'; hp2.frequency.value = hpFreq; hp2.Q.value = 0.7;
+
+                var mud = offline.createBiquadFilter();
+                mud.type = 'peaking'; mud.frequency.value = 300; mud.Q.value = 1.1;
+                mud.gain.value = -3.5 * noiseAmt;
+
+                var lowShelf = offline.createBiquadFilter();
+                lowShelf.type = 'lowshelf'; lowShelf.frequency.value = 180; lowShelf.gain.value = warmth;
+
+                var pres = offline.createBiquadFilter();
+                pres.type = 'peaking'; pres.frequency.value = 3200; pres.Q.value = 0.8;
+                pres.gain.value = clarity * 1.25;
+
+                var air = offline.createBiquadFilter();
+                air.type = 'highshelf'; air.frequency.value = 8000; air.gain.value = clarity * 0.85;
+
+                node.connect(hp); hp.connect(hp2); hp2.connect(mud);
+                mud.connect(lowShelf); lowShelf.connect(pres); pres.connect(air);
+                air.connect(offline.destination);
+                node.start(0);
+                var rendered = await offline.startRendering();
+
+                if (noiseAmt > 0) {
+                    for (var c = 0; c < rendered.numberOfChannels; c++) {
+                        rendered.copyToChannel(spectralDenoise(rendered.getChannelData(c), noiseAmt), c);
+                    }
+                }
+
+                noiseGate(rendered, noiseAmt);
+                compress(rendered, -10, 2, 2);
+
+                var targetLvl = 0.24;
+                var lvl = getLevel(rendered);
+                var gainMul = lvl > 0 ? Math.min(Math.max(targetLvl / lvl, 1), 24) : 1;
+                for (var c = 0; c < rendered.numberOfChannels; c++) {
+                    var ch = rendered.getChannelData(c);
+                    for (var i = 0; i < ch.length; i++) ch[i] *= gainMul;
+                }
+
+                softLimit(rendered, 0.85);
+                var peak = getPeak(rendered);
+                var ceil = Math.pow(10, -1 / 20);
+                if (peak > ceil) {
+                    var norm = ceil / peak;
+                    for (var c = 0; c < rendered.numberOfChannels; c++) {
+                        var ch = rendered.getChannelData(c);
+                        for (var i = 0; i < ch.length; i++) ch[i] *= norm;
+                    }
+                }
+
+                enhancedBuf = rendered;
+                if (wavUrl) URL.revokeObjectURL(wavUrl);
+                wavUrl = URL.createObjectURL(bufToWav(rendered));
+                el('audioB').src = wavUrl;
+                drawWave(el('canvasB'), rendered, '#6ba83d');
+                el('results').classList.add('show');
+
+                var origLvl = getLevel(src), newLvl = getLevel(rendered);
+                var gainDb = origLvl > 0 ? 20 * Math.log10(newLvl / origLvl) : 0;
+                el('sGain').textContent = (gainDb >= 0 ? '+' : '') + gainDb.toFixed(1) + 'db';
+                el('sNoiseStat').textContent = '-' + (noiseAmt * 18).toFixed(1) + 'db';
+                el('sDur').textContent = src.duration.toFixed(1) + 's';
+                el('sSR').textContent = (src.sampleRate / 1000) + 'k';
+                el('stats').classList.add('show');
+                el('downloadBtn').disabled = false;
+
+                var elapsed = ((performance.now() - t0) / 1000).toFixed(1);
+                showMsg('✓ done in ' + elapsed + 's', 'ok');
+            } catch (err) {
+                showMsg('oops', 'err');
+            } finally {
+                el('enhanceBtn').disabled = false;
+                el('enhanceBtn').innerHTML = 'enhance';
+            }
+        }
+
+        function getPeak(buf) {
+            var peak = 0;
+            for (var c = 0; c < buf.numberOfChannels; c++) {
+                var d = buf.getChannelData(c);
+                for (var i = 0; i < d.length; i++) {
+                    var a = Math.abs(d[i]);
+                    if (a > peak) peak = a;
+                }
+            }
+            return peak;
+        }
+
+        function getLevel(buf) {
+            var d = buf.getChannelData(0), sr = buf.sampleRate;
+            var frameSize = Math.max(1, Math.floor(sr * 0.05));
+            var vals = [];
+            for (var s = 0; s + frameSize <= d.length; s += frameSize) {
+                var sum = 0;
+                for (var i = 0; i < frameSize; i++) sum += d[s + i] * d[s + i];
+                vals.push(Math.sqrt(sum / frameSize));
+            }
+            if (!vals.length) return 0;
+            vals.sort((a, b) => a - b);
+            return vals[Math.floor(vals.length * 0.85)] || vals[vals.length - 1];
+        }
+
+        function getNoiseFloor(buf) {
+            var d = buf.getChannelData(0);
+            var win = Math.max(1, Math.floor(buf.sampleRate * 0.15));
+            var best = Infinity;
+            for (var s = 0; s + win <= d.length; s += win) {
+                var sum = 0;
+                for (var i = 0; i < win; i++) sum += d[s + i] * d[s + i];
+                var rms = Math.sqrt(sum / win);
+                if (rms < best) best = rms;
+            }
+            return isFinite(best) && best > 0 ? 20 * Math.log10(best) : -90;
+        }
+
+        function noiseGate(buf, amount) {
+            if (amount <= 0) return;
+            var sr = buf.sampleRate, ch = buf.numberOfChannels, len = buf.length;
+            var chans = [];
+            for (var c = 0; c < ch; c++) chans.push(buf.getChannelData(c));
+            var floorLin = Math.pow(10, getNoiseFloor(buf) / 20);
+            var openT = Math.max(0.0015, floorLin * (3 + amount * 5));
+            var closeT = Math.max(0.0008, floorLin * (1.3 + amount * 1.2));
+            var floorG = Math.max(0.04, 1 - amount * 1.05);
+            var eAtk = Math.exp(-1 / (sr * 0.002));
+            var eRel = Math.exp(-1 / (sr * 0.040));
+            var env = 0, envArr = new Float32Array(len);
+            for (var i = 0; i < len; i++) {
+                var s = 0;
+                for (var c = 0; c < ch; c++) {
+                    var a = Math.abs(chans[c][i]);
+                    if (a > s) s = a;
+                }
+                env = s > env ? eAtk * env + (1 - eAtk) * s : eRel * env + (1 - eRel) * s;
+                envArr[i] = env;
+            }
+            var gAtk = Math.exp(-1 / (sr * 0.003)), gRel = Math.exp(-1 / (sr * 0.045));
+            var g = floorG;
+            for (var i = 0; i < len; i++) {
+                var e = envArr[i], target;
+                if (e >= openT) target = 1;
+                else if (e <= closeT) target = floorG;
+                else { var r = (e - closeT) / (openT - closeT); target = floorG + (1 - floorG) * r * r; }
+                g = target < g ? gRel * g + (1 - gRel) * target : gAtk * g + (1 - gAtk) * target;
+                for (var c = 0; c < ch; c++) chans[c][i] *= g;
+            }
+        }
+
+        function doFFT(re, im, inverse) {
+            var n = re.length;
+            for (var i = 1, j = 0; i < n; i++) {
+                var bit = n >> 1;
+                for (; j & bit; bit >>= 1) j ^= bit;
+                j ^= bit;
+                if (i < j) { var t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; }
+            }
+            for (var len = 2; len <= n; len <<= 1) {
+                var ang = (inverse ? 2 : -2) * Math.PI / len;
+                var wlr = Math.cos(ang), wli = Math.sin(ang), half = len >> 1;
+                for (var i = 0; i < n; i += len) {
+                    var wr = 1, wi = 0;
+                    for (var k = 0; k < half; k++) {
+                        var a = i + k, b = i + k + half;
+                        var vr = re[b] * wr - im[b] * wi, vi = re[b] * wi + im[b] * wr;
+                        re[b] = re[a] - vr; im[b] = im[a] - vi; re[a] += vr; im[a] += vi;
+                        var nwr = wr * wlr - wi * wli; wi = wr * wli + wi * wlr; wr = nwr;
+                    }
+                }
+            }
+            if (inverse) for (var i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+        }
+
+        function spectralDenoise(input, amount) {
+            if (amount <= 0) return input.slice();
+            var N = 2048, hop = 512;
+            var win = new Float32Array(N);
+            for (var i = 0; i < N; i++) win[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1));
+            var len = input.length;
+            var re = new Float32Array(N), im = new Float32Array(N);
+            var starts = [];
+            for (var s = 0; s < len; s += hop) starts.push(s);
+            var energy = new Float32Array(starts.length);
+            for (var f = 0; f < starts.length; f++) {
+                var st = starts[f], e = 0;
+                for (var i = 0; i < N; i++) {
+                    var idx = st + i;
+                    var val = idx < len ? input[idx] * win[i] : 0;
+                    e += val * val;
+                }
+                energy[f] = e;
+            }
+            var sorted = Float32Array.from(energy).sort();
+            var thr = sorted[Math.floor(sorted.length * 0.12)] || sorted[sorted.length - 1];
+            var noiseP = new Float32Array(N), nCount = 0;
+            for (var f = 0; f < starts.length; f++) {
+                if (energy[f] > thr) continue;
+                var st = starts[f];
+                for (var i = 0; i < N; i++) { var idx = st + i; re[i] = idx < len ? input[idx] * win[i] : 0; im[i] = 0; }
+                doFFT(re, im, false);
+                for (var b = 0; b < N; b++) noiseP[b] += re[b] * re[b] + im[b] * im[b];
+                nCount++;
+            }
+            if (nCount > 0) for (var b = 0; b < N; b++) noiseP[b] = Math.sqrt(noiseP[b] / nCount);
+            var out = new Float32Array(len), wsum = new Float32Array(len);
+            var beta = 1.5 + amount * 2.5;
+            var floorG = Math.max(0.04, 1 - amount * 1.05);
+            for (var s = 0; s < starts.length; s++) {
+                var st = starts[s];
+                for (var i = 0; i < N; i++) { var idx = st + i; re[i] = idx < len ? input[idx] * win[i] : 0; im[i] = 0; }
+                doFFT(re, im, false);
+                for (var b = 0; b < N; b++) {
+                    var m = Math.sqrt(re[b] * re[b] + im[b] * im[b]);
+                    if (m > 0) {
+                        var g = (m - beta * noiseP[b]) / m;
+                        if (g < floorG) g = floorG;
+                        else if (g > 1) g = 1;
+                        re[b] *= g; im[b] *= g;
+                    }
+                }
+                doFFT(re, im, true);
+                for (var i = 0; i < N; i++) {
+                    var idx = st + i;
+                    if (idx < len) { out[idx] += re[i] * win[i]; wsum[idx] += win[i] * win[i]; }
+                }
+            }
+            for (var i = 0; i < len; i++) if (wsum[i] > 1e-8) out[i] /= wsum[i];
+            return out;
+        }
+
+        function compress(buf, threshDb, ratio, makeupDb) {
+            var sr = buf.sampleRate, ch = buf.numberOfChannels, len = buf.length;
+            var chans = [];
+            for (var c = 0; c < ch; c++) chans.push(buf.getChannelData(c));
+            var thr = Math.pow(10, threshDb / 20), makeup = Math.pow(10, makeupDb / 20);
+            var atk = Math.exp(-1 / (sr * 0.005)), rel = Math.exp(-1 / (sr * 0.120));
+            var env = 0;
+            for (var i = 0; i < len; i++) {
+                var s = 0;
+                for (var c = 0; c < ch; c++) { var a = Math.abs(chans[c][i]); if (a > s) s = a; }
+                env = s > env ? atk * env + (1 - atk) * s : rel * env + (1 - rel) * s;
+                var g = env > thr ? Math.pow(env / thr, 1 / ratio - 1) : 1;
+                for (var c = 0; c < ch; c++) chans[c][i] *= g * makeup;
+            }
+        }
+
+        function softLimit(buf, threshold) {
+            var range = 1 - threshold;
+            for (var c = 0; c < buf.numberOfChannels; c++) {
+                var d = buf.getChannelData(c);
+                for (var i = 0; i < d.length; i++) {
+                    var x = d[i], a = Math.abs(x);
+                    if (a > threshold) {
+                        var over = (a - threshold) / range;
+                        d[i] = Math.sign(x) * (threshold + range * Math.tanh(over));
+                    }
+                }
+            }
+        }
+
+        function bufToWav(buf) {
+            var numCh = buf.numberOfChannels, sr = buf.sampleRate, frames = buf.length;
+            var blockAlign = numCh * 2, dataSize = frames * blockAlign;
+            var ab = new ArrayBuffer(44 + dataSize), view = new DataView(ab);
+            function ws(o, s) { for (var i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); }
+            ws(0, 'RIFF'); view.setUint32(4, 36 + dataSize, true);
+            ws(8, 'WAVE'); ws(12, 'fmt ');
+            view.setUint32(16, 16, true); view.setUint16(20, 1, true);
+            view.setUint16(22, numCh, true); view.setUint32(24, sr, true);
+            view.setUint32(28, sr * blockAlign, true); view.setUint16(32, blockAlign, true);
+            view.setUint16(34, 16, true); ws(36, 'data'); view.setUint32(40, dataSize, true);
+            var chans = [];
+            for (var c = 0; c < numCh; c++) chans.push(buf.getChannelData(c));
+            var off = 44;
+            for (var i = 0; i < frames; i++) {
+                for (var c = 0; c < numCh; c++) {
+                    var s = Math.max(-1, Math.min(1, chans[c][i]));
+                    view.setInt16(off, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+                    off += 2;
+                }
+            }
+            return new Blob([ab], { type: 'audio/wav' });
+        }
+
+        function doDownload() {
+            if (!wavUrl) return;
+            var a = document.createElement('a');
+            a.href = wavUrl;
+            var name = (origFile ? origFile.name.replace(/\.[^.]+$/, '') : 'audio') + '-clean.wav';
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            showMsg('✓ saved', 'ok');
+        }
+
+        function clearAll() {
+            audioBuffer = null;
+            enhancedBuf = null;
+            origFile = null;
+            if (wavUrl) { URL.revokeObjectURL(wavUrl); wavUrl = null; }
+            el('fileInput').value = '';
+            el('filebox').classList.remove('show');
+            el('controls').style.display = 'none';
+            el('results').classList.remove('show');
+            el('stats').classList.remove('show');
+            el('audioA').src = '';
+            el('audioB').src = '';
+            el('downloadBtn').disabled = true;
+            hideMsg();
+        }
+
+        window.addEventListener('resize', () => {
+            if (audioBuffer) drawWave(el('canvasA'), audioBuffer, '#c97a9a');
+            if (enhancedBuf) drawWave(el('canvasB'), enhancedBuf, '#6ba83d');
+        });
+    </script>
+</body>
+
+</html>
